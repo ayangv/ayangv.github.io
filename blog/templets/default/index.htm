@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="gb2312">
+<title>{dede:global.cfg_webname/}_首页</title>
+<meta name="keywords" content="{dede:global.cfg_keywords/}" />
+<meta name="description" content="{dede:global.cfg_description/}" />
+{dede:include filename="head.htm"/}
+<!--header end-->
+<div id="mainbody">
+  <div class="info">
+  {dede:arclist flag="f" row="3"}
+    <figure><img src="[field:picname/]"  alt="[field:title/]">
+      <figcaption><strong>[field:title/]</strong>[field:infos function="cn_substr(@me,240)"/]...</figcaption>
+    </figure>{/dede:arclist}
+    <div class="card">
+      <h1>我的名片</h1>
+      <p>网名：tony</p>
+      <p>职业：Web后端工程师、网页设计</p>
+      <p>电话：13800138000</p>
+      <p>Email：5427414@qq.com</p>
+      <ul class="linkmore">
+        <li><a href="javascript:alert('糟糕，没有链接。');" class="talk" title="给我留言"></a></li>
+        <li><a href="javascript:alert('糟糕，没有链接。');" class="address" title="联系地址"></a></li>
+        <li><a href="javascript:alert('糟糕，没有链接。');" class="email" title="给我写信"></a></li>
+        <li><a href="javascript:alert('糟糕，没有链接。');" class="photos" title="生活照片"></a></li>
+        <li><a href="javascript:alert('糟糕，没有链接。');" class="heart" title="关注我"></a></li>
+      </ul>
+    </div>
+  </div>
+  <!--info end-->
+  <div class="blank"></div>
+  <div class="blogs">
+    <ul class="bloglist">
+   	 {dede:arclist}
+      <li>
+        <div class="arrow_box">
+          <div class="ti"></div>
+          <!--三角形-->
+          <div class="ci"></div>
+          <!--圆形-->
+          <h2 class="title"><a href="[field:arcurl/]" target="_blank">[field:title/]</a></h2>
+          <ul class="textinfo">
+            <a href="[field:arcurl/]"><img src="[field:picname/]"></a>
+            <p>[field:infos function="cn_substr(@me,240)"/]...</p>
+          </ul>
+          <ul class="details">
+            <li class="likes"><a href="#">[field:scores/]</a></li>
+            <li class="comments"><a href="#">[field:click/]</a></li>
+            <li class="icon-time"><a href="#">[field:pubdate function="MyDate('Y-m-d',@me)"/]</a></li>
+          </ul>
+        </div>
+        <!--arrow_box end--> 
+      </li>
+    {/dede:arclist}
+      
+    </ul>
+    <!--bloglist end-->
+    {dede:include filename="right.htm"/}
+  </div>
+  <!--blogs end--> 
+</div>
+<!--mainbody end-->
+
+{dede:include filename="footer.htm"/}
+</body>
+</html>

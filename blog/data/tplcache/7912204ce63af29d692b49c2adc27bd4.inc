@@ -1,0 +1,3 @@
+<li style="margin:10px 0;"><a href="[field:arcurl/]"><img src="[field:picname/]">[field:title/]...
+            <p>²é¿´ÏêÏ¸</p>
+            </a></li>

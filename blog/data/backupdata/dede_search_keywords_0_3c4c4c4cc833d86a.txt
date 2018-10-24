@@ -1,2 +1,0 @@
-INSERT INTO `dede_search_keywords` VALUES('1','html','html','6','1','1432830192','0','0');
-INSERT INTO `dede_search_keywords` VALUES('2','ÊÇ','ÊÇ','2','4','1432830796','0','0');

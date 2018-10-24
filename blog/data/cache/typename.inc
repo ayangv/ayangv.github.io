@@ -1,6 +1,0 @@
-<?php
-$typeArr[1] = '¼¼ÊõÌ½ÌÖ';
-$typeArr[2] = 'HTML5 / CSS3';
-$typeArr[3] = 'ÂýÉú»î';
-$typeArr[4] = 'ËéÑÔËéÓï';
-?>

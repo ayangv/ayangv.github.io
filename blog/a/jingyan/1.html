@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta http-equiv="Cache-Control" content="no-transform"/>
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta http-equiv="Content-Language" content="zh-CN" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>怎样做一个符合w3c规范的网页_响应式简洁博客主题</title>
+<meta name="keywords" content="怎样,做,一个,符合,w3c,规范,的,网页,作为," />
+<meta name="description" content="作为网站技术开发人员而言,往往是站在自己的开发角度来实 施网站布署(读取数据及开发的方便性等等),而不是站在网站访问者与搜索引擎角度。因此大部分的网站在浏览方面不够直观" />
+<link rel="stylesheet" type="text/css" href="/style/css/style.css" media="screen"/>
+<link rel="stylesheet" type="text/css" href="/style/css/font-awesome.min.css" media="screen"/>
+<!--[if IE 7]>
+<link rel="stylesheet" type="text/css" href="/style/css/font-awesome-ie7.min.css" media="screen"/>
+<![endif]-->
+<script src="/style/js/jquery-2.2.4.min.js" type="text/javascript"></script>
+<script src="/style/js/zblogphp.js" type="text/javascript"></script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="/style/js/html5-css3.js"></script>
+<![endif]-->
+</head>
+
+<body>
+<header class="site-header" role="banner">
+  <div class="header">
+    <div class="top-box">
+      <div class="logo"> <a href="/" title="响应式简洁博客主题"><img src="/style/images/logo.png" alt="响应式简洁博客主题"/></a> </div>
+      <nav class="nav" role="navigation">
+        <div class="menu">
+          <ul>
+            <li id="nvabar-item-index"><a href="/"><i class="icon-home"></i> 首页</a></li>
+            <li id="navbar-category-1"><a href="/a/jingyan/"><i class="icon-tasks"></i> 经验分享</a></li>
+            <li id="navbar-category-1"><a href="/a/ganhuo/"><i class="icon-share"></i> 干货分享</a></li>
+            <li id="navbar-category-1"><a href="/a/ziyuan/"><i class="icon-desktop"></i> 资源分享</a></li>
+            <li id="navbar-page-2"><a href="/a/message/"><i class="icon-comments"></i> 在线留言</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  <div class="clear"></div>
+</header>
+<div class="container">
+  <div class="breadcrumb"> <i class="icon-home"></i> <a href='http://web12/'>主页</a> > <a href='/a/jingyan/'>经验分享</a> >  </div>
+  <main class="main" role="main">
+    <div class="clear"></div>
+    <article class="post cate1  auth1">
+      
+      <h1>怎样做一个符合w3c规范的网页</h1>
+      <div class="postmeta article-meta"> <span><i class="icon-calendar"></i> 日期：2018-01-02 </span> <span><i class="icon-book"></i> 栏目：<a href="" title="经验分享" target="_blank">经验分享</a></span> <span><i class="icon-fire"></i> 浏览：<script src="/plus/count.php?view=yes&aid=1&mid=1" type='text/javascript' language="javascript"></script>次 </span> </div>
+      <div class="entry">
+        <div style="text-align: center;">
+	<img alt="" src="/uploads/allimg/170708/1-1FFQ20Zb11.jpg" style="width: 554px; height: 328px;" /></div>
+<div>
+	<br />
+	作为网站技术开发人员而言,往往是站在自己的开发角度来实 施网站布署(读取数据及开发的方便性等等),而不是站在网站访问者与搜索引擎角度。因此大部分的网站在浏览方面不够直观或是方便,特别是现在w3c的规范,更是在大部分的网站开发人员脑里一片空白。何况百度 、google、msn、yahoo等专业搜索引擎更有自己的搜索规则及判断网页等级技术,所以网站要优化,优化的目的只有一个：符合标准,符合蜘蛛爬行的标准,更重要的是符合网站访问者浏览的方便及易用性。以下文章中，AB织梦模板网主要通过三个方面来讲述有关W3C!</div>
+<div>
+	&nbsp;</div>
+<div>
+	什么是W3C标准</div>
+<div>
+	W3C其实就是World Wide Web Consortium,全球万维网联盟的简称。W3C的主要职责就是确定未来万维网的发展方向,并且制定相关的推荐(recommendation, 由于W3C是一个民间组织,没有约束性,因此只提供建议)。HTML4.01规范建议(HTML4.01 Specification Recommendation)就是由W3C所制定的。它还负责制定XML,MathML等其他网络语言规范。</div>
+<div>
+	&nbsp;</div>
+<div>
+	怎样通过W3C标准的验证?</div>
+<div>
+	步骤方法如下：</div>
+<div>
+	1、图片的alt=&quot;&quot; 属性必须每张图片都加上，而且对齐属性用CSS来定义。不加不能通过XHTML 1.0的验证。</div>
+<div>
+	2、每个文档必须加上DTD声明。</div>
+<div>
+	a) !DOCTYPE html PUBLIC &quot;-//W3C//DTDXHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;</div>
+<div>
+	去掉后能通过验证，但有警告：No DOCTYPE found! Checking with default XHTML 1.0 Transitional Document Type.</div>
+<div>
+	3、RSS的XML通过时其中的域名地址必须与检测的地址一致，否则会报错。</div>
+<div>
+	4、标签的链接属性加上JAVASCRIPT事件时必须为#空链,不能为javascript:;或javascript:void(null);</div>
+<div>
+	5、同一个页面当中，同名的ID会产生冲突。所以以ID定义样式的必须改成类引用。</div>
+<div>
+	&lt;div id=&quot;a1&quot;&gt;111&lt;/div&gt;</div>
+<div>
+	&lt;div id=&quot;a1&quot;&gt;222&lt;/div&gt;</div>
+<div>
+	如果不用W3C来检测的话，在CSS设计里是允许这样做的。</div>
+<div>
+	那是程序的角度不能相同，CSS上是可以相同的!</div>
+<div>
+	之前就是相同的产生问题，后面就改成类引用了!</div>
+<div>
+	6、不可省略双引号或单引号。</div>
+<div>
+	a) 这个是指属性，标准是双引号~</div>
+<div>
+	单引号也能通过验证。</div>
+<div>
+	7、标签之间不可错位嵌套。</div>
+<div>
+	&lt;div class=&quot;CaseDetaListSS&quot;&gt;原文链接：&lt;a href=&#39;/html/cases/cases_61.html&#39;&gt;官方网站&lt;/div&gt;&lt;/a&gt;</div>
+<div>
+	这是不允许的。</div>
+<div>
+	8、所有的标签都使用小写。</div>
+<div>
+	9、FLASH的标签代码中不能含有,必须采用其它的方法实现。</div>
+<div>
+	10、所有的标签中含有的属性必须有值(官方的说法)。</div>
+<div>
+	11、标签必须配对完成,单标签必须以/关闭</div>
+<div>
+	12、JS和CSS外部引入文件必须加上类型定义。</div>
+<div>
+	13、所有的样式全部写在外部文件。用类名定义。在使用的地方引用。</div>
+<div>
+	14、页面上的一些特殊字符必须用HTML代码来标识.如&ldquo;&amp;&rdquo;写成&ldquo;&amp;&ldquo;</div>
+<div>
+	&nbsp;</div>
+<div>
+	没通过W3C 标准验证的原因</div>
+<div>
+	每次修正代码后要刷新代码，使它们重新生效&mdash;&mdash;一个小错误常常会引发之后整页的连串错误。因此如果操作不当，&ldquo;修正错误&rdquo;也可能引发更多错误。每次修正后使代码重新生效，这样就可以确保完全解决问题。</div>
+<div>
+	知道了上面这些基本的异常情况，下面discuz模板网就来看看版面设计无效的几个原因。</div>
+<div>
+	1、div 标签未关闭</div>
+<div>
+	这是版面设计失效的最常见原因之一。当我们了解到这是多少精致的版块设计失效的罪魁祸首时，总会大吃一惊。开启的div标签是最普遍的版块设计失误之一，也是最难诊断的失误之一。验证程序有时会指向错误的开启div标签，诊断时就像大海捞针一样麻烦。</div>
+<div>
+	2、麻烦的embed标签</div>
+<div>
+	九十年代早期，Microsoft和Netscape的浏览器开始能够辨认非标准的独有字体。遗憾的是这意味着W3C验证程序还不能识别某些关键HTML 标签，如&ldquo;embed&rdquo;，即使这些标签已经被广泛使用。如果确实希望得到严格的DOCTYPE(文档类型)验证，就只能放弃嵌套。</div>
+<div>
+	如果同时想要生效的版面设计和嵌入式媒体，可以试试Flash Satay方法。</div>
+<div>
+	3、不当的DOCTYPE声明</div>
+<div>
+	不声明DOCTYPE，或者在文件开始错误声明DOCTYPE，也是一个常见错误。根据一般经验，Strict DOCTYPE是大家追求的最高级验证。Strict validation表明你的网页能够在所有浏览器上都得到最佳展示。Strict 声明代码如下：</div>
+<div>
+	&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;</div>
+<div>
+	4、结尾斜线</div>
+<div>
+	如果你的网站不能验证，很有可能是在代码的某个地方漏写了结尾斜线。我们很容易忽略结尾斜线之类的东西，特别是在image标签等元素中。例如：</div>
+<div>
+	在严格的DOCTYPE中这是无效的。要在img标签结尾处加上&ldquo;/&rdquo;以解决此问题。</div>
+<div>
+	&lt;img src=&quot;&quot; alt=&quot;&quot;&gt;</div>
+<div>
+	5、Align标签</div>
+<div>
+	如果DOCTYPE被设为Transitional，你就会使用&ldquo;align&rdquo;标签，但如果要求更高一点希望得到Strict验证，你会看到很多错误。 Align是另一个不可用于版面设计的标签。可以尝试用&ldquo;float&rdquo;或者&ldquo;text-align&rdquo;来代替align转换元素。</div>
+<div>
+	6、JavaScript</div>
+<div>
+	如果已经声明Strict DOCTYPE，就需要在JavaScript中覆盖CDATA标签。验证程序的这一方面难倒了很多程序员，因为网站倾向于为广告和追踪脚本使用嵌入的 JavaScript。如果必须用到JavaScript，可以在其前后加上如下标签：</div>
+<div>
+	&lt;script type=&quot;text/javascript&quot;&gt;&nbsp;</div>
+<div>
+	/* &lt;![CDATA[ */</div>
+<div>
+	// JavaScript here</div>
+<div>
+	};</div>
+<div>
+	/* ]]&gt; */</div>
+<div>
+	&lt;/script&gt;</div>
+<div>
+	7、图像需要&ldquo;alt&rdquo;属性</div>
+<div>
+	你可能还没有注意到，图像也是高级验证的潜在绊脚石。除了结尾斜线，高级验证也要求用alt标签来描述图像，如alt= &rdquo;Scary vampire picture&rdquo;.</div>
+<div>
+	搜索引擎也靠alt标签来识别网页上的图像，所以无论怎样加上alt标签总是好的。</div>
+<div>
+	8、未知实体数据</div>
+<div>
+	实体数据是又一个影响验证的易犯错误。我们可以考虑用适当的编码字符来代替&ldquo;&amp;&rdquo;等符号。entire list中列出在XHTML版块设计中可用的适当的编码字符实体数据。</div>
+<div>
+	9、不良嵌套</div>
+<div>
+	嵌套就是元素里又包括元素，如下所示：</div>
+<div>
+	&lt;div&gt;&lt;strong&gt;Sweet!&lt;/strong&gt;&lt;/div&gt;</div>
+<div>
+	我们容易混淆嵌套元素的顺序。例如在div标签前启动strong标签，但又先关闭div标签。这可能不会改变版块布局，但却会使你的版块设计失效。</div>
+<div>
+	10、缺少&ldquo;title&rdquo;标签</div>
+<div>
+	尽管这看上去是一个很明显的错误，很多程序员(包括我自己)还是经常会在&ldquo;head&rdquo;版块中遗漏title标签。当你看到&ldquo;missing a required sub-element of HEAD&rdquo;(缺少HEAD的必要子元素)时，才会发现自己忘记添加title标签了。</div>
+
+      </div>
+      
+      <div class="post-nav">
+        <div class="nav-left">上一篇：没有了 </div>
+        <div class="nav-right">下一篇：<a href='/a/jingyan/2.html'>网络公司告诉你有关面包屑导航的事</a> </div>
+      </div>
+      <div class="post-copyright">
+        <p>内容版权声明：除非注明，否则皆为本站原创文章。</p>
+        <p>转载注明出处：<a href="//a/jingyan/1.html" title="怎样做一个符合w3c规范的网页" target="_blank">http://web12/a/jingyan/1.html</a></p>
+      </div>
+      <section class="related">
+        <h3>相关推荐</h3>
+        <ul>
+         <li><i>2018-01-02</i><span class="top">1</span><a href="/a/jingyan/2.html" target="_blank" title="网络公司告诉你有关面包屑导航的事">网络公司告诉你有关面包屑导航的事</a></li>
+<li><i>2018-01-02</i><span class="top">2</span><a href="/a/jingyan/1.html" target="_blank" title="怎样做一个符合w3c规范的网页">怎样做一个符合w3c规范的网页</a></li>
+
+        </ul>
+      </section>
+      
+
+    </article>
+  </main>
+  <aside class="sidebar">
+    <section class="widget" id="divSearchPanel">
+      <h3><i class="icon-th-list"></i> 搜索</h3>
+      <div>
+        <form  name="formsearch" action="/plus/search.php">
+          <input type="text" name="q" size="11" />
+          <input type="submit" value="搜索" />
+        </form>
+      </div>
+    </section>
+    <section class="widget" id="scroll">
+      <h3><i class="icon-th-list"></i> 热门文章</h3>
+      <ul class="hot-post">
+        <li>
+          <div class="thumb"><a href="/a/jingyan/1.html" title="怎样做一个符合w3c规范的网页"><img src="/uploads/allimg/170708/1-1FFQ20Zb11-lp.jpg" alt="怎样做一个符合w3c规范的网页"/></a></div>
+          <div class="hot-title"><a href="/a/jingyan/1.html" title="怎样做一个符合w3c规范的网页">怎样做一个符合w3c规范的网页</a></div>
+          <div class="hot-time"><i class="icon-time"></i> 2018-01-02</div>
+        </li>
+<li>
+          <div class="thumb"><a href="/a/ganhuo/3.html" title="内容优化之有“心”创作"><img src="/uploads/allimg/170708/1-1FFQ93502121-lp.jpg" alt="内容优化之有“心”创作"/></a></div>
+          <div class="hot-title"><a href="/a/ganhuo/3.html" title="内容优化之有“心”创作">内容优化之有“心”创作</a></div>
+          <div class="hot-time"><i class="icon-time"></i> 2018-01-02</div>
+        </li>
+<li>
+          <div class="thumb"><a href="/a/ganhuo/4.html" title="带着seo思维选域名 建站就成功了一半"><img src="/uploads/allimg/170708/1-1FFQ93552317-lp.jpg" alt="带着seo思维选域名 建站就成功了一半"/></a></div>
+          <div class="hot-title"><a href="/a/ganhuo/4.html" title="带着seo思维选域名 建站就成功了一半">带着seo思维选域名 建站就成功了一半</a></div>
+          <div class="hot-time"><i class="icon-time"></i> 2018-01-02</div>
+        </li>
+<li>
+          <div class="thumb"><a href="/a/jingyan/2.html" title="网络公司告诉你有关面包屑导航的事"><img src="/uploads/allimg/170708/1-1FFQ21300519-lp.jpg" alt="网络公司告诉你有关面包屑导航的事"/></a></div>
+          <div class="hot-title"><a href="/a/jingyan/2.html" title="网络公司告诉你有关面包屑导航的事">网络公司告诉你有关面包屑导航的事</a></div>
+          <div class="hot-time"><i class="icon-time"></i> 2018-01-02</div>
+        </li>
+<li>
+          <div class="thumb"><a href="/a/ziyuan/5.html" title="如何让自己的网站更有质量？秀站有妙招"><img src="/uploads/allimg/170708/1-1FFQ93934U8-lp.jpg" alt="如何让自己的网站更有质量？秀站有妙招"/></a></div>
+          <div class="hot-title"><a href="/a/ziyuan/5.html" title="如何让自己的网站更有质量？秀站有妙招">如何让自己的网站更有质量？秀站有妙招</a></div>
+          <div class="hot-time"><i class="icon-time"></i> 2018-01-02</div>
+        </li>
+
+      </ul>
+    </section>
+    <section class="widget">
+      <h3><i class="icon-th-list"></i> 热评文章</h3>
+      <ul class="hot-post">
+        <li>
+          <div class="thumb"><a href="/a/ziyuan/5.html" title="如何让自己的网站更有质量？秀站有妙招"><img src="/uploads/allimg/170708/1-1FFQ93934U8-lp.jpg" alt="如何让自己的网站更有质量？秀站有妙招"/></a></div>
+          <div class="hot-title"><a href="/a/ziyuan/5.html" title="如何让自己的网站更有质量？秀站有妙招">如何让自己的网站更有质量？秀站有妙招</a></div>
+          <div class="hot-time"><i class="icon-time"></i> 2018-01-02</div>
+        </li>
+<li>
+          <div class="thumb"><a href="/a/ganhuo/4.html" title="带着seo思维选域名 建站就成功了一半"><img src="/uploads/allimg/170708/1-1FFQ93552317-lp.jpg" alt="带着seo思维选域名 建站就成功了一半"/></a></div>
+          <div class="hot-title"><a href="/a/ganhuo/4.html" title="带着seo思维选域名 建站就成功了一半">带着seo思维选域名 建站就成功了一半</a></div>
+          <div class="hot-time"><i class="icon-time"></i> 2018-01-02</div>
+        </li>
+<li>
+          <div class="thumb"><a href="/a/ganhuo/3.html" title="内容优化之有“心”创作"><img src="/uploads/allimg/170708/1-1FFQ93502121-lp.jpg" alt="内容优化之有“心”创作"/></a></div>
+          <div class="hot-title"><a href="/a/ganhuo/3.html" title="内容优化之有“心”创作">内容优化之有“心”创作</a></div>
+          <div class="hot-time"><i class="icon-time"></i> 2018-01-02</div>
+        </li>
+<li>
+          <div class="thumb"><a href="/a/jingyan/2.html" title="网络公司告诉你有关面包屑导航的事"><img src="/uploads/allimg/170708/1-1FFQ21300519-lp.jpg" alt="网络公司告诉你有关面包屑导航的事"/></a></div>
+          <div class="hot-title"><a href="/a/jingyan/2.html" title="网络公司告诉你有关面包屑导航的事">网络公司告诉你有关面包屑导航的事</a></div>
+          <div class="hot-time"><i class="icon-time"></i> 2018-01-02</div>
+        </li>
+<li>
+          <div class="thumb"><a href="/a/jingyan/1.html" title="怎样做一个符合w3c规范的网页"><img src="/uploads/allimg/170708/1-1FFQ20Zb11-lp.jpg" alt="怎样做一个符合w3c规范的网页"/></a></div>
+          <div class="hot-title"><a href="/a/jingyan/1.html" title="怎样做一个符合w3c规范的网页">怎样做一个符合w3c规范的网页</a></div>
+          <div class="hot-time"><i class="icon-time"></i> 2018-01-02</div>
+        </li>
+
+      </ul>
+    </section>
+    
+  </aside>
+</div>
+<footer class="footer">
+  <div class="foot">
+    <p>Copyright &copy; 2017 织梦园模板网 版权所有 主题由 <a href="http://www.dedeyuan.com" title="织梦园模板网" target="_blank">dedecms模版</a> 免费分享.</p>
+    <p> </p>
+  </div>
+</footer>
+<div class="backtop"> <a title="反回顶部"><i class="icon-chevron-up"></i></a> </div>
+<script type="text/javascript" src="/style/js/leonhere.js"></script> 
+<script type="text/javascript" src="/style/js/jquery.pjax.min.js"></script> 
+<script type="text/javascript" src="/style/js/responsiveslides.min.js"></script> 
+<script type="text/javascript" src="/style/js/jquery.lazyload.js"></script> 
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+	$(".post .thumb img,.entry img").lazyload({
+
+  	  	placeholder : "/style/images/grey.gif", 
+
+  	 	effect      : "fadeIn"
+
+	});
+
+});
+
+</script>
+</body>
+</html>

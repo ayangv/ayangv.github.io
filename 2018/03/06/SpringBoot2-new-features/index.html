@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <!-- 百度联盟 -->
+  <meta name="baidu_union_verify" content="46e227ad81d5513c6cd8288c18c6ebad">
+
+  <!-- google analytics -->
+    <meta name="google-site-verification" content="SzCGQVmA8Mtk40elee-bCGpq2YSCAmEulSNEZHYCkFc" />
+
+  <!--百度站长之家验证-->
+  <meta name="baidu-site-verification" content="4woRik4rfk" />
+
+  <meta name="description" content="坑要一个个填，路要一步步走！—— from zhisheng的博客">
+  <meta name="keywords" content="Java,架构,后端,服务端,RocketMQ,分布式消息队列,分布式存储,技术博客,HBase,ElasticSearch,Spring,Spring Boot,Spring Boot 2.0,Spring Cloud,Spring MVC,Java EE,前端,HTML,MyBatis,Android,Docker,Mac,Consul,Kafka,Logstash,Kibana,MySQL,Maven,Nginx,Python,RabbitMQ,ActiveMQ,JVM">
+
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://yoursite.com">
+  <title>Spring Boot 2.0系列文章(二)：Spring Boot 2.0 新特性详解 | zhisheng的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="背景在 3 月 1 号，Spring Boot2.0.0.RELEASE正式发布，这是 Spring Boot1.0 发布 4 年之后第一次重大修订，因此有多的新功能和特性值得大家期待！下面带大家了解下 Spring Boot 2.0 中的新特性。">
+<meta name="keywords" content="Java,SpringBoot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Boot 2.0系列文章(二)：Spring Boot 2.0 新特性详解">
+<meta property="og:url" content="http://yoursite.com/2018/03/06/SpringBoot2-new-features/index.html">
+<meta property="og:site_name" content="zhisheng的博客">
+<meta property="og:description" content="背景在 3 月 1 号，Spring Boot2.0.0.RELEASE正式发布，这是 Spring Boot1.0 发布 4 年之后第一次重大修订，因此有多的新功能和特性值得大家期待！下面带大家了解下 Spring Boot 2.0 中的新特性。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1fp34jn0xb3j31hc140aji.jpg">
+<meta property="og:image" content="http://ohfk1r827.bkt.clouddn.com/blog/180103/C6LG3mGa12.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1fp34jnoouij30dc093dfp.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79gy1fp3jkmizmpj30o00didgn.jpg">
+<meta property="og:updated_time" content="2018-05-02T13:28:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring Boot 2.0系列文章(二)：Spring Boot 2.0 新特性详解">
+<meta name="twitter:description" content="背景在 3 月 1 号，Spring Boot2.0.0.RELEASE正式发布，这是 Spring Boot1.0 发布 4 年之后第一次重大修订，因此有多的新功能和特性值得大家期待！下面带大家了解下 Spring Boot 2.0 中的新特性。">
+<meta name="twitter:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1fp34jn0xb3j31hc140aji.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="zhisheng的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.ico">
+  
+  <link rel="stylesheet" type="text/css" href="/./main.234bc0.css">
+  <style type="text/css">
+  
+    #container.show {
+      background: linear-gradient(200deg,#a0cfe4,#e8c37e);
+    }
+  </style>
+  
+
+  
+<script type="text/javascript">
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c41be5a0c9f014e977695f66c065b5d3";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      
+<div class="overlay" style="background: #4d4d4d"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/avatar.png" class="js-avatar">
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">zhisheng</a></h1>
+		</hgroup>
+		
+		<p class="header-subtitle">坑要一个个填，路要一步步走！</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/archives/">博客</a></li>
+	        
+				<li><a href="/tags/随笔/">随笔</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+    		
+    			
+    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
+    			
+            
+    			
+    			<a q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友链</a>
+    			
+            
+    			
+    			<a q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/zhisheng17/" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/tian-zhisheng/activities" title="zhihu"><i class="icon-zhihu"></i></a>
+		        
+					<a class="qq" target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=12fd21bdd550f4b14f76ed5f00305b22e57fbd08aa55a18d472570280754a179" title="qq"><i class="icon-qq"></i></a>
+		        
+					<a class="mail" target="_blank" href="mailto://zhisheng2018@gmail.com" title="mail"><i class="icon-mail"></i></a>
+		        
+			</div>
+		</nav>
+		<br>
+		<br>
+		<div>
+			<img src="/img/wx.jpg"  alt="zhisheng" />
+		</div>
+		<br>
+		<div>
+			<img src="/img/mywx.png"  alt="zhisheng" />
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      
+<nav id="mobile-nav">
+  	<div class="overlay js-overlay" style="background: #4d4d4d"></div>
+	<div class="btnctn js-mobile-btnctn">
+  		<div class="slider-trigger list" q-on="click: openSlider(e)"><i class="icon icon-sort"></i></div>
+	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/avatar.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author js-header-author">zhisheng</h1>
+			</hgroup>
+			
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>坑要一个个填，路要一步步走！<i class="icon icon-quo-right"></i></p>
+			
+			
+			
+				
+			
+				
+			
+				
+			
+			
+			
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/zhisheng17/" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/tian-zhisheng/activities" title="zhihu"><i class="icon-zhihu"></i></a>
+			        
+						<a class="qq" target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=12fd21bdd550f4b14f76ed5f00305b22e57fbd08aa55a18d472570280754a179" title="qq"><i class="icon-qq"></i></a>
+			        
+						<a class="mail" target="_blank" href="mailto://zhisheng2018@gmail.com" title="mail"><i class="icon-mail"></i></a>
+			        
+				</div>
+			</nav>
+
+			<nav class="header-menu js-header-menu">
+				<ul style="width: 70%">
+				
+				
+					<li style="width: 33.333333333333336%"><a href="/">主页</a></li>
+		        
+					<li style="width: 33.333333333333336%"><a href="/archives/">博客</a></li>
+		        
+					<li style="width: 33.333333333333336%"><a href="/tags/随笔/">随笔</a></li>
+		        
+				</ul>
+			</nav>
+		</header>				
+	</div>
+	<div class="mobile-mask" style="display:none" q-show="isShow"></div>
+</nav>
+
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <article id="post-SpringBoot2-new-features" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Spring Boot 2.0系列文章(二)：Spring Boot 2.0 新特性详解
+    </h1>
+  
+
+        
+        <a href="/2018/03/06/SpringBoot2-new-features/" class="archive-article-date">
+  	<time datetime="2018-03-05T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-06</time>
+</a>
+        
+      </header>
+    
+
+    <!-- 目录内容 -->
+
+    <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+          <span class="btn-bg"></span>
+          <span class="btn-text">文章导航</span>
+          </p>
+    <div id="toc-article" class="toc-article">
+        <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+        <strong class="toc-title">文章目录</strong>
+           <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#背景"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关注我"><span class="toc-number">2.</span> <span class="toc-text">关注我</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#从-Spring-Boot-1-5-升级"><span class="toc-number">3.</span> <span class="toc-text">从 Spring Boot 1.5 升级</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新的和值得注意的特性"><span class="toc-number">4.</span> <span class="toc-text">新的和值得注意的特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#起码-JDK-8-和支持-JDK-9"><span class="toc-number">5.</span> <span class="toc-text">起码 JDK 8 和支持 JDK 9</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第三方库的升级"><span class="toc-number">6.</span> <span class="toc-text">第三方库的升级</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reactive-Spring"><span class="toc-number">7.</span> <span class="toc-text">Reactive Spring</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Spring-WebFlux＆WebFlux-fn"><span class="toc-number">7.1.</span> <span class="toc-text">Spring WebFlux＆WebFlux.fn</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Reactive-Spring-Data"><span class="toc-number">7.2.</span> <span class="toc-text">Reactive Spring Data</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Reactive-Spring-Security"><span class="toc-number">7.3.</span> <span class="toc-text">Reactive Spring Security</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#嵌入式-Netty-服务器"><span class="toc-number">7.4.</span> <span class="toc-text">嵌入式 Netty 服务器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP-2-支持"><span class="toc-number">8.</span> <span class="toc-text">HTTP/2 支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置属性的绑定"><span class="toc-number">9.</span> <span class="toc-text">配置属性的绑定</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置起源"><span class="toc-number">9.1.</span> <span class="toc-text">配置起源</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#转换器支持"><span class="toc-number">9.2.</span> <span class="toc-text">转换器支持</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gradle-插件"><span class="toc-number">10.</span> <span class="toc-text">Gradle 插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kotlin"><span class="toc-number">11.</span> <span class="toc-text">Kotlin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Actuator-改进"><span class="toc-number">12.</span> <span class="toc-text">Actuator 改进</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Actuator-JSON"><span class="toc-number">12.1.</span> <span class="toc-text">Actuator JSON</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Jersey-and-WebFlux-支持"><span class="toc-number">12.2.</span> <span class="toc-text">Jersey and WebFlux 支持</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Hypermedia-links"><span class="toc-number">12.3.</span> <span class="toc-text">Hypermedia links</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Actuator-Endpoints"><span class="toc-number">12.4.</span> <span class="toc-text">Actuator @Endpoints</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Micrometer"><span class="toc-number">12.5.</span> <span class="toc-text">Micrometer</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据支持"><span class="toc-number">13.</span> <span class="toc-text">数据支持</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HikariCP"><span class="toc-number">13.1.</span> <span class="toc-text">HikariCP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#初始化"><span class="toc-number">13.2.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JOOQ"><span class="toc-number">13.3.</span> <span class="toc-text">JOOQ</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JdbcTemplate"><span class="toc-number">13.4.</span> <span class="toc-text">JdbcTemplate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Spring-Data-Web-配置"><span class="toc-number">13.5.</span> <span class="toc-text">Spring Data Web 配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#InfluxDB"><span class="toc-number">13.6.</span> <span class="toc-text">InfluxDB</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Flyway-Liquibase-灵活配置"><span class="toc-number">13.7.</span> <span class="toc-text">Flyway/Liquibase 灵活配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Hibernate"><span class="toc-number">13.8.</span> <span class="toc-text">Hibernate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MongoDB-客户端自定义"><span class="toc-number">13.9.</span> <span class="toc-text">MongoDB 客户端自定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Redis"><span class="toc-number">13.10.</span> <span class="toc-text">Redis</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Web"><span class="toc-number">14.</span> <span class="toc-text">Web</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#上下文路径记录"><span class="toc-number">14.1.</span> <span class="toc-text">上下文路径记录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Web过滤器初始化"><span class="toc-number">14.2.</span> <span class="toc-text">Web过滤器初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Thymeleaf"><span class="toc-number">14.3.</span> <span class="toc-text">Thymeleaf</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JSON-支持"><span class="toc-number">14.4.</span> <span class="toc-text">JSON 支持</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Quartz"><span class="toc-number">15.</span> <span class="toc-text">Quartz</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试"><span class="toc-number">16.</span> <span class="toc-text">测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其它"><span class="toc-number">17.</span> <span class="toc-text">其它</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动画-ASCII-艺术"><span class="toc-number">18.</span> <span class="toc-text">动画 ASCII 艺术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考资料"><span class="toc-number">19.</span> <span class="toc-text">参考资料</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关文章"><span class="toc-number">20.</span> <span class="toc-text">相关文章</span></a></li></ol>
+         </div>
+   <script type="text/javascript">
+    function showToc(){
+        var toc_article = document.getElementById("toc-article");
+        var show_toc_btn = document.getElementById("show-toc-btn");
+        toc_article.setAttribute("style","display:block");
+        show_toc_btn.setAttribute("style","display:none");
+        };
+    function showBtn(){
+        var toc_article = document.getElementById("toc-article");
+        var show_toc_btn = document.getElementById("show-toc-btn");
+        toc_article.setAttribute("style","display:none");
+        show_toc_btn.setAttribute("style","display:block");
+        };
+   </script>
+      
+<!-- 目录内容结束 -->
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1fp34jn0xb3j31hc140aji.jpg" alt=""></p>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>在 3 月 1 号，Spring Boot<code>2.0.0.RELEASE</code>正式发布，这是 Spring Boot1.0 发布 4 年之后第一次重大修订，因此有多的新功能和特性值得大家期待！下面带大家了解下 Spring Boot 2.0 中的新特性。</p>
+<a id="more"></a>
+<h3 id="关注我"><a href="#关注我" class="headerlink" title="关注我"></a>关注我</h3><p><img src="http://ohfk1r827.bkt.clouddn.com/blog/180103/C6LG3mGa12.jpg" alt="mark"></p>
+<p>转载请务必注明原创地址为：<a href="http://www.54tianzhisheng.cn/2018/03/06/SpringBoot2-new-features/" target="_blank" rel="noopener">http://www.54tianzhisheng.cn/2018/03/06/SpringBoot2-new-features/</a></p>
+<h3 id="从-Spring-Boot-1-5-升级"><a href="#从-Spring-Boot-1-5-升级" class="headerlink" title="从 Spring Boot 1.5 升级"></a>从 Spring Boot 1.5 升级</h3><p>由于 Spring Boot 2.0 的改变幅度有点大，所以升级现有的程序可能会比平常更大一些。</p>
+<p>如果你还在考虑是否要升级，这里推荐 DD 的博客文章：<a href="http://blog.didispace.com/spring-boot-2-release/" target="_blank" rel="noopener">Spring Boot 2.0 正式发布，升还是不升呢？</a></p>
+<p>如果要升级可以参考我的另外一篇文章：<a href="http://www.54tianzhisheng.cn/2018/03/06/SpringBoot2-Migration-Guide/" target="_blank" rel="noopener">Spring Boot 2.0 迁移指南</a></p>
+<p>如果您目前正在运行较早版本的 Spring Boot，我们强烈建议您在迁移到 Spring Boot 2.0 之前先升级到 Spring Boot 1.5。</p>
+<h3 id="新的和值得注意的特性"><a href="#新的和值得注意的特性" class="headerlink" title="新的和值得注意的特性"></a>新的和值得注意的特性</h3><p>小技巧：检查 <a href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Configuration-Changelog" target="_blank" rel="noopener">配置更改日志</a> 来获取配置更改的完整描述。</p>
+<h3 id="起码-JDK-8-和支持-JDK-9"><a href="#起码-JDK-8-和支持-JDK-9" class="headerlink" title="起码 JDK 8 和支持 JDK 9"></a>起码 JDK 8 和支持 JDK 9</h3><p>Spring Boot 2.0 要求 Java 8 作为最低版本。许多现有的 API 已更新，以利用 Java 8 的特性，例如：接口上的默认方法，函数回调以及新的 API，如<code>javax.time</code>。如果您当前正在使用 Java 7 或更早版本，则在开发 Spring Boot 2.0 应用程序之前，您需要升级您的 JDK。</p>
+<p>Spring Boot 2.0 通过了在 JDK 9 下的测试，可以在 JDK 9 下正常运行，。我们所有的 jar 包都在模块系统兼容性的清单中附带了自动模块名称条目。</p>
+<h3 id="第三方库的升级"><a href="#第三方库的升级" class="headerlink" title="第三方库的升级"></a>第三方库的升级</h3><p>Spring Boot 2.0 建立在 Spring Framework 5 之上，并且需要 Spring Framework 5 。你可以通过  <a href="https://github.com/spring-projects/spring-framework/wiki/What%27s-New-in-Spring-Framework-5.x" target="_blank" rel="noopener">What’s New in Spring Framework 5.x</a>  了解 Spring 5 的新特性。并在继续之前查看其升级指南 <a href="https://github.com/spring-projects/spring-framework/wiki/Upgrading-to-Spring-Framework-5.x" target="_blank" rel="noopener">Upgrading to Spring Framework 5.x</a> 。</p>
+<p>我们已尽可能升级到其他第三方库的最新稳定版本。 本版本中一些显着的依赖性升级包括：</p>
+<ul>
+<li>Tomcat 8.5</li>
+<li>Flyway 5</li>
+<li>Hibernate 5.2</li>
+<li>Thymeleaf 3</li>
+</ul>
+<h3 id="Reactive-Spring"><a href="#Reactive-Spring" class="headerlink" title="Reactive Spring"></a>Reactive Spring</h3><p>Spring 产品组合中的许多项目现在都为开发<a href="https://github.com/reactive-streams/reactive-streams-jvm#reactive-streams" target="_blank" rel="noopener">反应式应用程序</a>提供一流的支持。反应性应用程序是完全异步和非阻塞的。它们旨在用于事件循环执行模型（而不是更传统的每个请求线程执行模型）。Spring 框架参考文档中的<a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html" target="_blank" rel="noopener">“Web 反应堆栈”</a>部分为这个主题提供了一个很好的入门。</p>
+<p>Spring Boot 2.0 通过自动配置和启动器 POM 完全支持反应式应用。Spring Boot 的内部本身也在必要时进行了更新，以提供反应性的反应（最明显的是我们的嵌入式服务器支持）。</p>
+<h4 id="Spring-WebFlux＆WebFlux-fn"><a href="#Spring-WebFlux＆WebFlux-fn" class="headerlink" title="Spring WebFlux＆WebFlux.fn"></a>Spring WebFlux＆WebFlux.fn</h4><p>Spring WebFlux 是 Spring MVC 的完全非阻塞反应式替代方案。Spring Boot 为基于注释的 Spring WebFlux 应用程序以及 WebFlux.fn 提供了自动配置，WebFlux.fn 提供了更实用的样式 API。</p>
+<p>要开始，请添加 <code>spring-boot-starter-webflux</code> 到 POM，它将提供由嵌入式 Netty 服务器支持的 Spring WebFlux。</p>
+<h4 id="Reactive-Spring-Data"><a href="#Reactive-Spring-Data" class="headerlink" title="Reactive Spring Data"></a>Reactive Spring Data</h4><p>在底层技术支持的情况下，Spring Data 还为反应式应用程序提供支持。目前 Cassandra，MongoDB，Couchbase 和 Redis 都有反应式 API 支持。</p>
+<p>Spring Boot 包含针对这些技术的特殊 starter-POMs，可为您提供启动所需的一切。例如，<code>spring-boot-starter-data-mongodb-reactive</code>包括对反应性 mongo 驱动程序和项目反应堆的依赖性。</p>
+<h4 id="Reactive-Spring-Security"><a href="#Reactive-Spring-Security" class="headerlink" title="Reactive Spring Security"></a>Reactive Spring Security</h4><p>Spring Boot 2.0 可以充分利用 Spring Security 5.0 来保护您的反应式应用程序。当 Spring Security 位于类路径中时，会为 WebFlux 应用程序提供自动配置。</p>
+<p>使用 WebFlux 的 Spring Security 访问规则可以通过<code>SecurityWebFilterChain</code>。如果你之前整合过 Spring MVC 和 Spring Security，应该会感到非常熟悉。有关更多详细信息，请参阅 <a href="http://docs.spring.io/spring-boot/docs/2.0.x-SNAPSHOT/reference/htmlsingle/#boot-features-security-webflux" target="_blank" rel="noopener">Spring Boot 参考文档</a>和 <a href="https://docs.spring.io/spring-security/site/docs/5.0.0.RELEASE/reference/htmlsingle/#jc-webflux" target="_blank" rel="noopener">Spring Security 文档</a>。</p>
+<h4 id="嵌入式-Netty-服务器"><a href="#嵌入式-Netty-服务器" class="headerlink" title="嵌入式 Netty 服务器"></a>嵌入式 Netty 服务器</h4><p>由于 WebFlux 不依赖于 Servlet API，我们现在可以首次为 Netty 作为嵌入式服务器提供支持。该<code>spring-boot-starter-webflux</code>  启动 POM 将拉取 Netty  4.1 和 <a href="https://github.com/reactor/reactor-netty" target="_blank" rel="noopener">Ractor Netty</a> 。</p>
+<p>注意：您只能将 Netty 用作反应式服务器。不提供阻止 servlet API 支持。</p>
+<h3 id="HTTP-2-支持"><a href="#HTTP-2-支持" class="headerlink" title="HTTP/2 支持"></a>HTTP/2 支持</h3><p>为 Tomcat，Undertow 和 Jetty 提供 HTTP / 2 支持。支持取决于所选的 Web 服务器和应用程序环境（因为 JDK 8 不支持该协议）。</p>
+<p>如何配置 HTTP／2，请参考 <a href="https://docs.spring.io/spring-boot/docs/2.0.x-SNAPSHOT/reference/htmlsingle/#howto-configure-http2" target="_blank" rel="noopener">官方文档</a> 。</p>
+<h3 id="配置属性的绑定"><a href="#配置属性的绑定" class="headerlink" title="配置属性的绑定"></a>配置属性的绑定</h3><p>在 Spring Boot 2.0 中，用于绑定<code>Environment</code>属性的机制<code>@ConfigurationProperties</code>已经完全彻底修改。我们借此机会收紧了松散绑定的规则，并修复了 Spring Boot 1.x 中的许多不一致之处。</p>
+<p>新的<code>Binder</code>API 也可以<code>@ConfigurationProperties</code>直接在你自己的代码之外使用。例如，下面将结合到<code>List</code>的<code>PersonName</code>对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;PersonName&gt; people = Binder.get(environment)</span><br><span class="line">    .bind(<span class="string">"my.property"</span>, Bindable.listOf(PersonName.class))</span><br><span class="line">    .orElseThrow(IllegalStateException::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+<p>配置源可以像这样在 YAML 中表示：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">my:</span></span><br><span class="line"><span class="attr">  property:</span></span><br><span class="line"><span class="attr">  - first-name:</span> <span class="string">zhisheng</span></span><br><span class="line"><span class="attr">    last-name:</span> <span class="string">tian</span></span><br><span class="line"><span class="attr">  - first-name:</span> <span class="string">zhisheng</span></span><br><span class="line"><span class="attr">    last-name:</span> <span class="string">tian</span></span><br></pre></td></tr></table></figure>
+<p>有关更新绑定规则的更多信息，<a href="https://github.com/spring-projects/spring-boot/wiki/Relaxed-Binding-2.0" target="_blank" rel="noopener">请参阅此Wiki页面</a>。</p>
+<h4 id="配置起源"><a href="#配置起源" class="headerlink" title="配置起源"></a>配置起源</h4><p>YAML 文件和被 Spring Boot 加载的 Properties 文件现在包含<code>Origin</code>信息，可帮助您跟踪项目从何处加载的信息。有些 Spring Boot 特性利用了这个信息可以在适当的时候展示出来。</p>
+<p>例如，<code>BindException</code>绑定失败时抛出的类是一个<code>OriginProvider</code>。这意味着原始信息可以很好地从故障分析器中显示出来。</p>
+<p>另一个例子是<code>env</code>执行器端点，当它有可用时包含了原始信息。下面的代码片断显示该<code>spring.security.user.name</code>属性来自 jar 包中的 application.properties 文件的第 1行，第 27 列。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"applicationConfig: [classpath:/application.properties]"</span>,</span><br><span class="line">  <span class="attr">"properties"</span>: &#123;</span><br><span class="line">    <span class="attr">"spring.security.user.name"</span>: &#123;</span><br><span class="line">      <span class="attr">"value"</span>: <span class="string">"user"</span>,</span><br><span class="line">      <span class="attr">"origin"</span>: <span class="string">"class path resource [application.properties]:1:27"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="转换器支持"><a href="#转换器支持" class="headerlink" title="转换器支持"></a>转换器支持</h4><p>Binding 利用了一个新的 <code>ApplicationConversionService</code> 类，它提供了一些对属性绑定特别有用的额外转换器。最引人注目的是转换器的<code>Duration</code>类型和分隔字符串。</p>
+<p>该<code>Duration</code>转换器允许在任一 ISO-8601 格式中指定的持续时间，或作为一个简单的字符串（例如<code>10m</code>，10 分钟）。现有的属性已更改为始终使用<code>Duration</code>。该<code>@DurationUnit</code>注释通过设置如果没有指定所使用的单元确保向后兼容性。例如，Spring Boot 1.5 中需要秒数的属性现在必须<code>@DurationUnit(ChronoUnit.SECONDS)</code>确保一个简单的值，例如<code>10</code>实际使用的值<code>10s</code>。</p>
+<p>分隔字符串转换允许您将简单绑定<code>String</code>到<code>Collection</code>或<code>Array</code>不必分割逗号。例如，LDAP <code>base-dn</code> 属性用 <code>@Delimiter(Delimiter.NONE)</code>，所以 LDAP DN（通常包含逗号）不会被错误解释。</p>
+<h3 id="Gradle-插件"><a href="#Gradle-插件" class="headerlink" title="Gradle 插件"></a>Gradle 插件</h3><p>Spring Boot 的 Gradle 插件已在很大程度上进行了重新编写，以实现<a href="https://github.com/spring-projects/spring-boot/issues?utf8=%E2%9C%93&amp;q=label%3A%22theme%3A%20gradle-plugin%22%20milestone%3A2.0.0.M1%20" target="_blank" rel="noopener">许多重大改进</a>。您可以在其<a href="http://docs.spring.io/spring-boot/docs/2.0.x-SNAPSHOT/gradle-plugin/reference" target="_blank" rel="noopener">参考文献</a>和 <a href="https://docs.spring.io/spring-boot/docs/2.0.0.BUILD-SNAPSHOT/gradle-plugin/api" target="_blank" rel="noopener">API</a> 文档中阅读关于插件功能的更多信息。</p>
+<p>Spring Boot 现在需要 Gradle 4.x. 如果您要升级使用 Gradle 的项目，请查看<a href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide" target="_blank" rel="noopener">迁移指南</a>。</p>
+<h3 id="Kotlin"><a href="#Kotlin" class="headerlink" title="Kotlin"></a>Kotlin</h3><p>Spring Boot 2.0 现在包含对 Kotlin 1.2.x 的支持，并提供了<code>runApplication</code> ，一个使用 Kotlin 运行 Spring Boot 应用程序的方法。我们还公开和利用了 Kotlin 对其他 Spring 项目（如Spring Framework，Spring Data 和 Reactor）已添加到其最近版本中的支持。</p>
+<p>有关更多信息，请参阅<a href="http://docs.spring.io/spring-boot/docs/2.0.x-SNAPSHOT/reference/htmlsingle/#boot-features-kotlin" target="_blank" rel="noopener">参考文档</a>的<a href="http://docs.spring.io/spring-boot/docs/2.0.x-SNAPSHOT/reference/htmlsingle/#boot-features-kotlin" target="_blank" rel="noopener">Kotlin支持部分</a>。</p>
+<h3 id="Actuator-改进"><a href="#Actuator-改进" class="headerlink" title="Actuator 改进"></a>Actuator 改进</h3><p>在 Spring Boot 2.0 中 Actuator endpoints 有很大的改进。所有 HTTP Actuator endpoints 现在都在该<code>/actuator</code>路径下公开，并且生成的 JSON 有效负载得到了改进。</p>
+<p>我们现在也不会在默认情况下暴露很多端点。如果您要升级现有的 Spring Boot 1.5 应用程序，请务必查看<a href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide" target="_blank" rel="noopener">迁移指南</a>并特别注意该<code>management.endpoints.web.exposure.include</code>属性。</p>
+<h4 id="Actuator-JSON"><a href="#Actuator-JSON" class="headerlink" title="Actuator JSON"></a>Actuator JSON</h4><p>Spring Boot 2.0 改进了从许多端点返回的 JSON 有效负载。</p>
+<p>现在许多端点都具有更精确地反映底层数据的 JSON。例如，<code>/actuator/conditions</code>终端（<code>/autoconfig</code>在Spring Boot 1.5中）现在有一个顶级<code>contexts</code>密钥来将结果分组<code>ApplicationContext</code>。</p>
+<p>现在还使用 <a href="https://projects.spring.io/spring-restdocs/" target="_blank" rel="noopener">Spring REST Docs</a> 生成了广泛的 <a href="https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/actuator-api/html/" target="_blank" rel="noopener">REST API </a> <a href="https://projects.spring.io/spring-restdocs/" target="_blank" rel="noopener">文档，</a>并随每个版本发布。</p>
+<h4 id="Jersey-and-WebFlux-支持"><a href="#Jersey-and-WebFlux-支持" class="headerlink" title="Jersey and WebFlux 支持"></a>Jersey and WebFlux 支持</h4><p>除了支持 Spring MVC 和 JMX，您现在可以在开发 Jersey 或 WebFlux 应用程序时访问执行器端点。Jersey 支持通过自定义 Jersey 提供<code>Resource</code>，WebFlux 使用自定义<code>HandlerMapping</code>。</p>
+<h4 id="Hypermedia-links"><a href="#Hypermedia-links" class="headerlink" title="Hypermedia links"></a>Hypermedia links</h4><p>该<code>/actuator</code>端点现在提供了一个 HAL 格式的响应提供链接到所有活动端点（即使你没有 Spring HATEOAS 在classpath）。</p>
+<h4 id="Actuator-Endpoints"><a href="#Actuator-Endpoints" class="headerlink" title="Actuator @Endpoints"></a>Actuator @Endpoints</h4><p>为了支持 Spring MVC，JMX，WebFlux 和 Jersey，我们为 Actuator @Endpoints 开发了一种新的编程模型。该<code>@Endpoint</code>注解可以与<code>@ReadOperation</code>，<code>@WriteOperation</code> 和 <code>@DeleteOperation</code> 组合使用开发 endpoints。</p>
+<p>您还可以使用<code>@EndpointWebExtension</code>或<code>@EndpointJmxExtension</code>编写技术特定的增强功能到 endpoints。详细信息请参阅<a href="http://docs.spring.io/spring-boot/docs/2.0.x-SNAPSHOT/reference/htmlsingle/#production-ready-endpoints-custom" target="_blank" rel="noopener">更新的参考文档</a>。</p>
+<h4 id="Micrometer"><a href="#Micrometer" class="headerlink" title="Micrometer"></a>Micrometer</h4><p>Spring Boot 2.0 不再提供自己的指标 API。相反，我们依靠 <a href="https://micrometer.io/" target="_blank" rel="noopener">micrometer.io</a> 来满足所有应用程序监视需求。</p>
+<p>Micrometer 包括尺寸指标的支持，当与尺寸监测系统配对时，尺寸指标可以有效访问特定的指定度量标准，并且可以在其尺寸范围内向下钻取。</p>
+<p>指标可以输出到各种系统和开箱即用的 Spring Boot 2.0，为 Atlas，Datadog，Ganglia，Graphite，Influx，JMX，New Relic，Prometheus，SignalFx，StatsD 和 Wavefront 提供支持。另外还可以使用简单的内存中度量标准。</p>
+<p>集成随 JVM 指标（包括 CPU，内存，线程和 GC），Logback，Tomcat，Spring MVC＆提供<code>RestTemplate</code>。</p>
+<p>有关更多详细信息，请参阅参考文档的更新<a href="http://docs.spring.io/spring-boot/docs/2.0.x-SNAPSHOT/reference/htmlsingle/#production-ready-metrics" target="_blank" rel="noopener">“指标”部分</a>。</p>
+<h3 id="数据支持"><a href="#数据支持" class="headerlink" title="数据支持"></a>数据支持</h3><p>除了上面提到的 <code>Reactive Spring Data</code> 支持外，在数据领域还进行了其他一些更新和改进。</p>
+<h4 id="HikariCP"><a href="#HikariCP" class="headerlink" title="HikariCP"></a>HikariCP</h4><p>Spring Boot 2.0 中的默认数据库池技术已从 Tomcat Pool 切换到 HikariCP。我们发现 Hakari 提供了卓越的性能，我们的许多用户更喜欢 Tomcat Pool。</p>
+<h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><p>数据库初始化逻辑在 Spring Boot 2.0 中已经合理化。Spring Batch，Spring Integration，Spring Session 和 Quartz的初始化现在仅在使用嵌入式数据库时才会默认发生。该<code>enabled</code>属性已被替换为更具表现力枚举。例如，如果你想一直执行 Spring Batch 的初始化，您可以设置<code>spring.batch.initialize-schema=always</code>。</p>
+<p>如果 Flyway 或 Liquibase 正在管理您的 DataSource 的模式，并且您正在使用嵌入式数据库，Spring Boot 现在会自动关闭 Hibernate 的自动 DDL 功能。</p>
+<h4 id="JOOQ"><a href="#JOOQ" class="headerlink" title="JOOQ"></a>JOOQ</h4><p>Spring Boot 2.0 现在基于 DataSource 自动检测 JOOQ 方言（类似于为 JPA 方言所做的）。<code>@JooqTest</code>是新引入的注解用来简化那些只有 JOOQ 必须被使用的测试。</p>
+<h4 id="JdbcTemplate"><a href="#JdbcTemplate" class="headerlink" title="JdbcTemplate"></a>JdbcTemplate</h4><p>Spring Boot 自动配置的 <code>JdbcTemplate</code> 现在可以通过 <code>spring.jdbc.template</code> 属性进行自定义。此外，<code>NamedParameterJdbcTemplate</code>自动配置的内容会重用<code>JdbcTemplate</code>。</p>
+<h4 id="Spring-Data-Web-配置"><a href="#Spring-Data-Web-配置" class="headerlink" title="Spring Data Web 配置"></a>Spring Data Web 配置</h4><p>Spring Boot 公开了一个新的<code>spring.data.web</code>配置名称空间，可以轻松配置分页和排序。</p>
+<h4 id="InfluxDB"><a href="#InfluxDB" class="headerlink" title="InfluxDB"></a>InfluxDB</h4><p>Spring Boot 现在自动配置开源时间序列数据库 InfluxDB。要启用 InfluxDB 支持，您需要设置一个<code>spring.influx.url</code>属性，并将其包含<code>influxdb-java</code>在您的类路径中。</p>
+<h4 id="Flyway-Liquibase-灵活配置"><a href="#Flyway-Liquibase-灵活配置" class="headerlink" title="Flyway/Liquibase 灵活配置"></a>Flyway/Liquibase 灵活配置</h4><p>如果仅提供自定义<code>url</code>或<code>user</code>属性，则 Flyway 和 Liquibase 的自动配置现在将重用标准数据源属性，而不是忽略它们。这使您可以创建一个自定义的数据源，仅用于所需信息的迁移。</p>
+<h4 id="Hibernate"><a href="#Hibernate" class="headerlink" title="Hibernate"></a>Hibernate</h4><p>现在支持自定义 Hibernate 命名策略。对于高级场景，现在可以在上下文中定义<code>ImplicitNamingStrategy</code>或<code>PhysicalNamingStrategy</code>使用常规 bean。</p>
+<p>现在也可以通过公开<code>HibernatePropertiesCustomizer</code>bean 来更加细致地定制 Hibernate 使用的属性。</p>
+<h4 id="MongoDB-客户端自定义"><a href="#MongoDB-客户端自定义" class="headerlink" title="MongoDB 客户端自定义"></a>MongoDB 客户端自定义</h4><p>现在可以通过定义一个类型的 bean 来为 Spring Boot 自动配置的 Mongo 客户端应用高级定制<code>MongoClientSettingsBuilderCustomizer</code>。</p>
+<h4 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h4><p>现在可以使用<code>spring.cache.redis.*</code>属性配置 Redis 的缓存默认值。</p>
+<h3 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h3><p>除了上面提到的 WebFlux 和 WebFlux.fn 支持之外，还在开发 Web 应用程序时进行了以下改进。</p>
+<h4 id="上下文路径记录"><a href="#上下文路径记录" class="headerlink" title="上下文路径记录"></a>上下文路径记录</h4><p>当使用嵌入式容器时，当您的应用程序启动时，上下文路径将与 HTTP 端口一起记录。例如，嵌入式 Tomcat 现在看起来像这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tomcat 在端口上启动：8080（http），其上下文路径为 &apos;/foo&apos;</span><br></pre></td></tr></table></figure>
+<h4 id="Web过滤器初始化"><a href="#Web过滤器初始化" class="headerlink" title="Web过滤器初始化"></a>Web过滤器初始化</h4><p>Web 过滤器现在在所有支持的容器上急切地初始化。</p>
+<h4 id="Thymeleaf"><a href="#Thymeleaf" class="headerlink" title="Thymeleaf"></a>Thymeleaf</h4><p>Thymeleaf 初始化现在包括<code>thymeleaf-extras-java8time</code>，提供<code>javax.time</code>类型支持。</p>
+<h4 id="JSON-支持"><a href="#JSON-支持" class="headerlink" title="JSON 支持"></a>JSON 支持</h4><p>新的<code>spring-boot-starter-json</code>起始者收集必要的位以读取和写入 JSON。它不仅提供了<code>jackson-databind</code>与Java8 工作时，也是有用的模块：<code>jackson-datatype-jdk8</code>，<code>jackson-datatype-jsr310</code>和<code>jackson-module-parameter-names</code>。这个新的起动器现在被用于<code>jackson-databind</code>之前定义的地方。</p>
+<p>如果您更喜欢 Jackson 之外的其他产品，我们对 GSON 的支持在 Spring Boot 2.0  已经大大提高。我们还引入了对 JSON-B 的支持（包括 JSON-B 测试支持）。</p>
+<h3 id="Quartz"><a href="#Quartz" class="headerlink" title="Quartz"></a>Quartz</h3><p>自动配置支持目前包含了  <a href="http://www.quartz-scheduler.org/" target="_blank" rel="noopener">Quartz Scheduler</a>。我们还添加了新的<code>spring-boot-starter-quartz</code> 初始化 POM。</p>
+<p>您可以使用内存<code>JobStores</code>中或完整的基于 JDBC 的存储。所有<code>JobDetail</code>，<code>Calendar</code>并<code>Trigger</code>从你的 Spring应用程序上下文豆将自动注册<code>Scheduler</code>。</p>
+<p>有关更多详细信息，请阅读参考文档的新<a href="http://docs.spring.io/spring-boot/docs/2.0.x-SNAPSHOT/reference/htmlsingle/#boot-features-quartz" target="_blank" rel="noopener">“Quartz Scheduler”部分</a>。</p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>对 Spring Boot 2.0 中提供的测试支持进行了一些补充和调整：</p>
+<ul>
+<li><code>@WebFluxTest</code>已添加新注释以支持 WebFlux 应用程序的“切片”测试。</li>
+<li><code>Converter</code>和<code>GenericConverter</code>豆类现在自动扫描<code>@WebMvcTest</code>和<code>@WebFluxTest</code>。</li>
+<li><code>@AutoConfigureWebTestClient</code>已经添加了一个注释来提供一个<code>WebTestClient</code>bean 供测试使用。注释会自动应用于<code>@WebFluxTest</code>测试。</li>
+<li>增加了一个新的<code>ApplicationContextRunner</code>测试实用程序，可以很容易地测试您的自动配置。我们已将大部分内部测试套件移至此新模型。详细信息请参阅<a href="http://docs.spring.io/spring-boot/docs/2.0.x-SNAPSHOT/reference/htmlsingle/#boot-features-test-autoconfig" target="_blank" rel="noopener">更新的文档</a>。</li>
+</ul>
+<h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><p>除了上面列出的变化外，还有很多小的调整和改进，包括：</p>
+<ul>
+<li><code>@ConditionalOnBean</code>现在在确定是否满足条件时使用逻辑<code>AND</code>而不是逻辑<code>OR</code>。</li>
+<li>无条件类现在包含在自动配置报告中。</li>
+<li>该<code>spring</code>CLI 应用程序现在包括<code>encodepassword</code>可用于创建 Spring Security 的兼容散列密码命令。</li>
+<li>计划任务（即 <code>@EnableScheduling</code>）可以使用<code>scheduledtasks</code>执行器端点进行审查。</li>
+<li>该<code>loggers</code>驱动器终端现在允许你重新设置一个记录器级别为它的默认。</li>
+<li>Spring Session 用户现在可以通过<code>sessions</code>执行器端点查找和删除会话。</li>
+<li>使用<code>spring-boot-starter-parent</code>现在基于 Maven 的应用程序<code>-parameters</code>默认使用标志。</li>
+<li>我们的构建现在使用 <a href="http://concourse.ci/" target="_blank" rel="noopener">concourse</a> 的 CI 和我们的项目 POM 文件已被重构，使它们更简单的。</li>
+</ul>
+<h3 id="动画-ASCII-艺术"><a href="#动画-ASCII-艺术" class="headerlink" title="动画 ASCII 艺术"></a>动画 ASCII 艺术</h3><p>最后，为了好玩，Spring Boot 2.0 现在支持动画 GIF 横幅。</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1fp34jnoouij30dc093dfp.jpg" alt="animated-ascii-art"></p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="">https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Release-Notes</a></p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79gy1fp3jkmizmpj30o00didgn.jpg" alt=""></p>
+<h3 id="相关文章"><a href="#相关文章" class="headerlink" title="相关文章"></a>相关文章</h3><p>1、<a href="http://www.54tianzhisheng.cn/2018/03/06/SpringBoot2-Migration-Guide/" target="_blank" rel="noopener">Spring Boot 2.0系列文章(一)：Spring Boot 2.0 迁移指南</a></p>
+<p>2、<a href="http://www.54tianzhisheng.cn/2018/03/06/SpringBoot2-new-features/" target="_blank" rel="noopener">Spring Boot 2.0系列文章(二)：Spring Boot 2.0 新特性详解</a></p>
+<p>3、<a href="http://www.54tianzhisheng.cn/2018/04/13/Spring_Boot_2.0_Configuration_Changelog/" target="_blank" rel="noopener">Spring Boot 2.0系列文章(三)：Spring Boot 2.0 配置改变</a></p>
+<p>4、<a href="http://www.54tianzhisheng.cn/2018/04/15/springboot2_code/" target="_blank" rel="noopener">Spring Boot 2.0系列文章(四)：Spring Boot 2.0 源码阅读环境搭建</a></p>
+<p>5、<a href="http://www.54tianzhisheng.cn/2018/04/18/spring_boot2_project/" target="_blank" rel="noopener">Spring Boot 2.0系列文章(五)：Spring Boot 2.0 项目源码结构预览</a></p>
+<p>6、<a href="http://www.54tianzhisheng.cn/2018/04/19/SpringBootApplication-annotation/" target="_blank" rel="noopener">Spring Boot 2.0系列文章(六)：Spring boot 2.0 中 SpringBootApplication 注解详解</a></p>
+<p>7、<a href="http://www.54tianzhisheng.cn/2018/04/30/springboot_SpringApplication/" target="_blank" rel="noopener">Spring Boot 2.0系列文章(七)：SpringApplication 深入探索</a></p>
+
+      
+
+      <!-- <div>
+  			<img src="/img/wx.jpg"  style="margin: 0 auto;" />
+  		</div> -->
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你支持我买服务器！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/zhifubao.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/weixin.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">SpringBoot</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/03/06/SpringBoot2-new-features/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2018/03/06/SpringBoot2-Migration-Guide/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Spring Boot 2.0系列文章(一)：Spring Boot 2.0 迁移指南
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/03/04/springboot-vedio/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">小马哥 《Java 微服务实践 - Spring Boot 系列》强烈推荐</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
+  
+
+
+
+  <section id="comments">
+<!--高速版，加载速度快，使用前需测试页面的兼容性-->
+<div id="SOHUCS" sid="Spring Boot 2.0系列文章(二)：Spring Boot 2.0 新特性详解"  style="padding: 0px 30px 0px 46px;"></div>
+<script>
+  (function(){
+    var appid = 'cysWCg9Ij',
+    conf = '7f51baf245f3217589bb3b4ba8d8c691';
+    var doc = document,
+    s = doc.createElement('script'),
+    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+    s.type = 'text/javascript';
+    s.charset = 'utf-8';
+    s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+    h.insertBefore(s,h.firstChild);
+    window.SCS_NO_IFRAME = true;
+  })()
+</script>
+  </section>
+  
+
+          </div>
+        </div>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 zhisheng
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://www.54tianzhisheng.cn/" target="_blank">Hexo</a>  Theme <a href="http://www.54tianzhisheng.cn/" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+  <span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+<span id="busuanzi_container_page_pv">
+  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</span>
+<p>Hosted by <a href="http://www.54tianzhisheng.cn/" style="font-weight: bold">Coding Pages</a></p>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https'){
+     bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else{
+    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+</footer>
+
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true,
+		showTags: false
+	}
+</script>
+
+<script>!function(t){function n(r){if(e[r])return e[r].exports;var o=e[r]={exports:{},id:r,loaded:!1};return t[r].call(o.exports,o,o.exports,n),o.loaded=!0,o.exports}var e={};return n.m=t,n.c=e,n.p="./",n(0)}([function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}function o(t,n){var e=/\/|index.html/g;return t.replace(e,"")===n.replace(e,"")}function i(){for(var t=document.querySelectorAll(".js-header-menu li a"),n=window.location.pathname,e=0,r=t.length;e<r;e++){var i=t[e];o(n,i.getAttribute("href"))&&(0,d.default)(i,"active")}}function u(t){for(var n=t.offsetLeft,e=t.offsetParent;null!==e;)n+=e.offsetLeft,e=e.offsetParent;return n}function f(t){for(var n=t.offsetTop,e=t.offsetParent;null!==e;)n+=e.offsetTop,e=e.offsetParent;return n}function c(t,n,e,r,o){var i=u(t),c=f(t)-n;if(c-e<=o){var a=t.$newDom;a||(a=t.cloneNode(!0),(0,h.default)(t,a),t.$newDom=a,a.style.position="fixed",a.style.top=(e||c)+"px",a.style.left=i+"px",a.style.zIndex=r||2,a.style.width="100%",a.style.color="#fff"),a.style.visibility="visible",t.style.visibility="hidden"}else{t.style.visibility="visible";var s=t.$newDom;s&&(s.style.visibility="hidden")}}function a(){var t=document.querySelector(".js-overlay"),n=document.querySelector(".js-header-menu");c(t,document.body.scrollTop,-63,2,0),c(n,document.body.scrollTop,1,3,0)}function s(){document.querySelector("#container").addEventListener("scroll",function(t){a()}),window.addEventListener("scroll",function(t){a()}),a()}function l(){x.default.versions.mobile&&window.screen.width<800&&(i(),s())}var p=e(71),d=r(p),v=e(72),y=(r(v),e(84)),h=r(y),b=e(69),x=r(b),m=e(75),g=r(m),w=e(70);l(),(0,w.addLoadEvent)(function(){g.default.init()}),t.exports={}},function(t,n){var e=t.exports="undefined"!=typeof window&&window.Math==Math?window:"undefined"!=typeof self&&self.Math==Math?self:Function("return this")();"number"==typeof __g&&(__g=e)},function(t,n){var e={}.hasOwnProperty;t.exports=function(t,n){return e.call(t,n)}},function(t,n,e){var r=e(49),o=e(15);t.exports=function(t){return r(o(t))}},function(t,n,e){t.exports=!e(8)(function(){return 7!=Object.defineProperty({},"a",{get:function(){return 7}}).a})},function(t,n,e){var r=e(6),o=e(12);t.exports=e(4)?function(t,n,e){return r.f(t,n,o(1,e))}:function(t,n,e){return t[n]=e,t}},function(t,n,e){var r=e(10),o=e(30),i=e(24),u=Object.defineProperty;n.f=e(4)?Object.defineProperty:function(t,n,e){if(r(t),n=i(n,!0),r(e),o)try{return u(t,n,e)}catch(t){}if("get"in e||"set"in e)throw TypeError("Accessors not supported!");return"value"in e&&(t[n]=e.value),t}},function(t,n,e){var r=e(22)("wks"),o=e(13),i=e(1).Symbol,u="function"==typeof i,f=t.exports=function(t){return r[t]||(r[t]=u&&i[t]||(u?i:o)("Symbol."+t))};f.store=r},function(t,n){t.exports=function(t){try{return!!t()}catch(t){return!0}}},function(t,n,e){var r=e(35),o=e(16);t.exports=Object.keys||function(t){return r(t,o)}},function(t,n,e){var r=e(11);t.exports=function(t){if(!r(t))throw TypeError(t+" is not an object!");return t}},function(t,n){t.exports=function(t){return"object"==typeof t?null!==t:"function"==typeof t}},function(t,n){t.exports=function(t,n){return{enumerable:!(1&t),configurable:!(2&t),writable:!(4&t),value:n}}},function(t,n){var e=0,r=Math.random();t.exports=function(t){return"Symbol(".concat(void 0===t?"":t,")_",(++e+r).toString(36))}},function(t,n){var e=t.exports={version:"2.4.0"};"number"==typeof __e&&(__e=e)},function(t,n){t.exports=function(t){if(void 0==t)throw TypeError("Can't call method on  "+t);return t}},function(t,n){t.exports="constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf".split(",")},function(t,n){t.exports={}},function(t,n){t.exports=!0},function(t,n){n.f={}.propertyIsEnumerable},function(t,n,e){var r=e(6).f,o=e(2),i=e(7)("toStringTag");t.exports=function(t,n,e){t&&!o(t=e?t:t.prototype,i)&&r(t,i,{configurable:!0,value:n})}},function(t,n,e){var r=e(22)("keys"),o=e(13);t.exports=function(t){return r[t]||(r[t]=o(t))}},function(t,n,e){var r=e(1),o="__core-js_shared__",i=r[o]||(r[o]={});t.exports=function(t){return i[t]||(i[t]={})}},function(t,n){var e=Math.ceil,r=Math.floor;t.exports=function(t){return isNaN(t=+t)?0:(t>0?r:e)(t)}},function(t,n,e){var r=e(11);t.exports=function(t,n){if(!r(t))return t;var e,o;if(n&&"function"==typeof(e=t.toString)&&!r(o=e.call(t)))return o;if("function"==typeof(e=t.valueOf)&&!r(o=e.call(t)))return o;if(!n&&"function"==typeof(e=t.toString)&&!r(o=e.call(t)))return o;throw TypeError("Can't convert object to primitive value")}},function(t,n,e){var r=e(1),o=e(14),i=e(18),u=e(26),f=e(6).f;t.exports=function(t){var n=o.Symbol||(o.Symbol=i?{}:r.Symbol||{});"_"==t.charAt(0)||t in n||f(n,t,{value:u.f(t)})}},function(t,n,e){n.f=e(7)},function(t,n,e){var r=e(1),o=e(14),i=e(46),u=e(5),f="prototype",c=function(t,n,e){var a,s,l,p=t&c.F,d=t&c.G,v=t&c.S,y=t&c.P,h=t&c.B,b=t&c.W,x=d?o:o[n]||(o[n]={}),m=x[f],g=d?r:v?r[n]:(r[n]||{})[f];d&&(e=n);for(a in e)s=!p&&g&&void 0!==g[a],s&&a in x||(l=s?g[a]:e[a],x[a]=d&&"function"!=typeof g[a]?e[a]:h&&s?i(l,r):b&&g[a]==l?function(t){var n=function(n,e,r){if(this instanceof t){switch(arguments.length){case 0:return new t;case 1:return new t(n);case 2:return new t(n,e)}return new t(n,e,r)}return t.apply(this,arguments)};return n[f]=t[f],n}(l):y&&"function"==typeof l?i(Function.call,l):l,y&&((x.virtual||(x.virtual={}))[a]=l,t&c.R&&m&&!m[a]&&u(m,a,l)))};c.F=1,c.G=2,c.S=4,c.P=8,c.B=16,c.W=32,c.U=64,c.R=128,t.exports=c},function(t,n){var e={}.toString;t.exports=function(t){return e.call(t).slice(8,-1)}},function(t,n,e){var r=e(11),o=e(1).document,i=r(o)&&r(o.createElement);t.exports=function(t){return i?o.createElement(t):{}}},function(t,n,e){t.exports=!e(4)&&!e(8)(function(){return 7!=Object.defineProperty(e(29)("div"),"a",{get:function(){return 7}}).a})},function(t,n,e){"use strict";var r=e(18),o=e(27),i=e(36),u=e(5),f=e(2),c=e(17),a=e(51),s=e(20),l=e(58),p=e(7)("iterator"),d=!([].keys&&"next"in[].keys()),v="@@iterator",y="keys",h="values",b=function(){return this};t.exports=function(t,n,e,x,m,g,w){a(e,n,x);var O,S,_,j=function(t){if(!d&&t in A)return A[t];switch(t){case y:return function(){return new e(this,t)};case h:return function(){return new e(this,t)}}return function(){return new e(this,t)}},P=n+" Iterator",E=m==h,M=!1,A=t.prototype,T=A[p]||A[v]||m&&A[m],L=T||j(m),N=m?E?j("entries"):L:void 0,C="Array"==n?A.entries||T:T;if(C&&(_=l(C.call(new t)),_!==Object.prototype&&(s(_,P,!0),r||f(_,p)||u(_,p,b))),E&&T&&T.name!==h&&(M=!0,L=function(){return T.call(this)}),r&&!w||!d&&!M&&A[p]||u(A,p,L),c[n]=L,c[P]=b,m)if(O={values:E?L:j(h),keys:g?L:j(y),entries:N},w)for(S in O)S in A||i(A,S,O[S]);else o(o.P+o.F*(d||M),n,O);return O}},function(t,n,e){var r=e(10),o=e(55),i=e(16),u=e(21)("IE_PROTO"),f=function(){},c="prototype",a=function(){var t,n=e(29)("iframe"),r=i.length,o="<",u=">";for(n.style.display="none",e(48).appendChild(n),n.src="javascript:",t=n.contentWindow.document,t.open(),t.write(o+"script"+u+"document.F=Object"+o+"/script"+u),t.close(),a=t.F;r--;)delete a[c][i[r]];return a()};t.exports=Object.create||function(t,n){var e;return null!==t?(f[c]=r(t),e=new f,f[c]=null,e[u]=t):e=a(),void 0===n?e:o(e,n)}},function(t,n,e){var r=e(35),o=e(16).concat("length","prototype");n.f=Object.getOwnPropertyNames||function(t){return r(t,o)}},function(t,n){n.f=Object.getOwnPropertySymbols},function(t,n,e){var r=e(2),o=e(3),i=e(45)(!1),u=e(21)("IE_PROTO");t.exports=function(t,n){var e,f=o(t),c=0,a=[];for(e in f)e!=u&&r(f,e)&&a.push(e);for(;n.length>c;)r(f,e=n[c++])&&(~i(a,e)||a.push(e));return a}},function(t,n,e){t.exports=e(5)},function(t,n,e){var r=e(15);t.exports=function(t){return Object(r(t))}},function(t,n,e){t.exports={default:e(41),__esModule:!0}},function(t,n,e){t.exports={default:e(42),__esModule:!0}},function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}n.__esModule=!0;var o=e(39),i=r(o),u=e(38),f=r(u),c="function"==typeof f.default&&"symbol"==typeof i.default?function(t){return typeof t}:function(t){return t&&"function"==typeof f.default&&t.constructor===f.default&&t!==f.default.prototype?"symbol":typeof t};n.default="function"==typeof f.default&&"symbol"===c(i.default)?function(t){return"undefined"==typeof t?"undefined":c(t)}:function(t){return t&&"function"==typeof f.default&&t.constructor===f.default&&t!==f.default.prototype?"symbol":"undefined"==typeof t?"undefined":c(t)}},function(t,n,e){e(65),e(63),e(66),e(67),t.exports=e(14).Symbol},function(t,n,e){e(64),e(68),t.exports=e(26).f("iterator")},function(t,n){t.exports=function(t){if("function"!=typeof t)throw TypeError(t+" is not a function!");return t}},function(t,n){t.exports=function(){}},function(t,n,e){var r=e(3),o=e(61),i=e(60);t.exports=function(t){return function(n,e,u){var f,c=r(n),a=o(c.length),s=i(u,a);if(t&&e!=e){for(;a>s;)if(f=c[s++],f!=f)return!0}else for(;a>s;s++)if((t||s in c)&&c[s]===e)return t||s||0;return!t&&-1}}},function(t,n,e){var r=e(43);t.exports=function(t,n,e){if(r(t),void 0===n)return t;switch(e){case 1:return function(e){return t.call(n,e)};case 2:return function(e,r){return t.call(n,e,r)};case 3:return function(e,r,o){return t.call(n,e,r,o)}}return function(){return t.apply(n,arguments)}}},function(t,n,e){var r=e(9),o=e(34),i=e(19);t.exports=function(t){var n=r(t),e=o.f;if(e)for(var u,f=e(t),c=i.f,a=0;f.length>a;)c.call(t,u=f[a++])&&n.push(u);return n}},function(t,n,e){t.exports=e(1).document&&document.documentElement},function(t,n,e){var r=e(28);t.exports=Object("z").propertyIsEnumerable(0)?Object:function(t){return"String"==r(t)?t.split(""):Object(t)}},function(t,n,e){var r=e(28);t.exports=Array.isArray||function(t){return"Array"==r(t)}},function(t,n,e){"use strict";var r=e(32),o=e(12),i=e(20),u={};e(5)(u,e(7)("iterator"),function(){return this}),t.exports=function(t,n,e){t.prototype=r(u,{next:o(1,e)}),i(t,n+" Iterator")}},function(t,n){t.exports=function(t,n){return{value:n,done:!!t}}},function(t,n,e){var r=e(9),o=e(3);t.exports=function(t,n){for(var e,i=o(t),u=r(i),f=u.length,c=0;f>c;)if(i[e=u[c++]]===n)return e}},function(t,n,e){var r=e(13)("meta"),o=e(11),i=e(2),u=e(6).f,f=0,c=Object.isExtensible||function(){return!0},a=!e(8)(function(){return c(Object.preventExtensions({}))}),s=function(t){u(t,r,{value:{i:"O"+ ++f,w:{}}})},l=function(t,n){if(!o(t))return"symbol"==typeof t?t:("string"==typeof t?"S":"P")+t;if(!i(t,r)){if(!c(t))return"F";if(!n)return"E";s(t)}return t[r].i},p=function(t,n){if(!i(t,r)){if(!c(t))return!0;if(!n)return!1;s(t)}return t[r].w},d=function(t){return a&&v.NEED&&c(t)&&!i(t,r)&&s(t),t},v=t.exports={KEY:r,NEED:!1,fastKey:l,getWeak:p,onFreeze:d}},function(t,n,e){var r=e(6),o=e(10),i=e(9);t.exports=e(4)?Object.defineProperties:function(t,n){o(t);for(var e,u=i(n),f=u.length,c=0;f>c;)r.f(t,e=u[c++],n[e]);return t}},function(t,n,e){var r=e(19),o=e(12),i=e(3),u=e(24),f=e(2),c=e(30),a=Object.getOwnPropertyDescriptor;n.f=e(4)?a:function(t,n){if(t=i(t),n=u(n,!0),c)try{return a(t,n)}catch(t){}if(f(t,n))return o(!r.f.call(t,n),t[n])}},function(t,n,e){var r=e(3),o=e(33).f,i={}.toString,u="object"==typeof window&&window&&Object.getOwnPropertyNames?Object.getOwnPropertyNames(window):[],f=function(t){try{return o(t)}catch(t){return u.slice()}};t.exports.f=function(t){return u&&"[object Window]"==i.call(t)?f(t):o(r(t))}},function(t,n,e){var r=e(2),o=e(37),i=e(21)("IE_PROTO"),u=Object.prototype;t.exports=Object.getPrototypeOf||function(t){return t=o(t),r(t,i)?t[i]:"function"==typeof t.constructor&&t instanceof t.constructor?t.constructor.prototype:t instanceof Object?u:null}},function(t,n,e){var r=e(23),o=e(15);t.exports=function(t){return function(n,e){var i,u,f=String(o(n)),c=r(e),a=f.length;return c<0||c>=a?t?"":void 0:(i=f.charCodeAt(c),i<55296||i>56319||c+1===a||(u=f.charCodeAt(c+1))<56320||u>57343?t?f.charAt(c):i:t?f.slice(c,c+2):(i-55296<<10)+(u-56320)+65536)}}},function(t,n,e){var r=e(23),o=Math.max,i=Math.min;t.exports=function(t,n){return t=r(t),t<0?o(t+n,0):i(t,n)}},function(t,n,e){var r=e(23),o=Math.min;t.exports=function(t){return t>0?o(r(t),9007199254740991):0}},function(t,n,e){"use strict";var r=e(44),o=e(52),i=e(17),u=e(3);t.exports=e(31)(Array,"Array",function(t,n){this._t=u(t),this._i=0,this._k=n},function(){var t=this._t,n=this._k,e=this._i++;return!t||e>=t.length?(this._t=void 0,o(1)):"keys"==n?o(0,e):"values"==n?o(0,t[e]):o(0,[e,t[e]])},"values"),i.Arguments=i.Array,r("keys"),r("values"),r("entries")},function(t,n){},function(t,n,e){"use strict";var r=e(59)(!0);e(31)(String,"String",function(t){this._t=String(t),this._i=0},function(){var t,n=this._t,e=this._i;return e>=n.length?{value:void 0,done:!0}:(t=r(n,e),this._i+=t.length,{value:t,done:!1})})},function(t,n,e){"use strict";var r=e(1),o=e(2),i=e(4),u=e(27),f=e(36),c=e(54).KEY,a=e(8),s=e(22),l=e(20),p=e(13),d=e(7),v=e(26),y=e(25),h=e(53),b=e(47),x=e(50),m=e(10),g=e(3),w=e(24),O=e(12),S=e(32),_=e(57),j=e(56),P=e(6),E=e(9),M=j.f,A=P.f,T=_.f,L=r.Symbol,N=r.JSON,C=N&&N.stringify,k="prototype",F=d("_hidden"),q=d("toPrimitive"),I={}.propertyIsEnumerable,B=s("symbol-registry"),D=s("symbols"),W=s("op-symbols"),H=Object[k],K="function"==typeof L,R=r.QObject,J=!R||!R[k]||!R[k].findChild,U=i&&a(function(){return 7!=S(A({},"a",{get:function(){return A(this,"a",{value:7}).a}})).a})?function(t,n,e){var r=M(H,n);r&&delete H[n],A(t,n,e),r&&t!==H&&A(H,n,r)}:A,G=function(t){var n=D[t]=S(L[k]);return n._k=t,n},$=K&&"symbol"==typeof L.iterator?function(t){return"symbol"==typeof t}:function(t){return t instanceof L},z=function(t,n,e){return t===H&&z(W,n,e),m(t),n=w(n,!0),m(e),o(D,n)?(e.enumerable?(o(t,F)&&t[F][n]&&(t[F][n]=!1),e=S(e,{enumerable:O(0,!1)})):(o(t,F)||A(t,F,O(1,{})),t[F][n]=!0),U(t,n,e)):A(t,n,e)},Y=function(t,n){m(t);for(var e,r=b(n=g(n)),o=0,i=r.length;i>o;)z(t,e=r[o++],n[e]);return t},Q=function(t,n){return void 0===n?S(t):Y(S(t),n)},X=function(t){var n=I.call(this,t=w(t,!0));return!(this===H&&o(D,t)&&!o(W,t))&&(!(n||!o(this,t)||!o(D,t)||o(this,F)&&this[F][t])||n)},V=function(t,n){if(t=g(t),n=w(n,!0),t!==H||!o(D,n)||o(W,n)){var e=M(t,n);return!e||!o(D,n)||o(t,F)&&t[F][n]||(e.enumerable=!0),e}},Z=function(t){for(var n,e=T(g(t)),r=[],i=0;e.length>i;)o(D,n=e[i++])||n==F||n==c||r.push(n);return r},tt=function(t){for(var n,e=t===H,r=T(e?W:g(t)),i=[],u=0;r.length>u;)!o(D,n=r[u++])||e&&!o(H,n)||i.push(D[n]);return i};K||(L=function(){if(this instanceof L)throw TypeError("Symbol is not a constructor!");var t=p(arguments.length>0?arguments[0]:void 0),n=function(e){this===H&&n.call(W,e),o(this,F)&&o(this[F],t)&&(this[F][t]=!1),U(this,t,O(1,e))};return i&&J&&U(H,t,{configurable:!0,set:n}),G(t)},f(L[k],"toString",function(){return this._k}),j.f=V,P.f=z,e(33).f=_.f=Z,e(19).f=X,e(34).f=tt,i&&!e(18)&&f(H,"propertyIsEnumerable",X,!0),v.f=function(t){return G(d(t))}),u(u.G+u.W+u.F*!K,{Symbol:L});for(var nt="hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables".split(","),et=0;nt.length>et;)d(nt[et++]);for(var nt=E(d.store),et=0;nt.length>et;)y(nt[et++]);u(u.S+u.F*!K,"Symbol",{for:function(t){return o(B,t+="")?B[t]:B[t]=L(t)},keyFor:function(t){if($(t))return h(B,t);throw TypeError(t+" is not a symbol!")},useSetter:function(){J=!0},useSimple:function(){J=!1}}),u(u.S+u.F*!K,"Object",{create:Q,defineProperty:z,defineProperties:Y,getOwnPropertyDescriptor:V,getOwnPropertyNames:Z,getOwnPropertySymbols:tt}),N&&u(u.S+u.F*(!K||a(function(){var t=L();return"[null]"!=C([t])||"{}"!=C({a:t})||"{}"!=C(Object(t))})),"JSON",{stringify:function(t){if(void 0!==t&&!$(t)){for(var n,e,r=[t],o=1;arguments.length>o;)r.push(arguments[o++]);return n=r[1],"function"==typeof n&&(e=n),!e&&x(n)||(n=function(t,n){if(e&&(n=e.call(this,t,n)),!$(n))return n}),r[1]=n,C.apply(N,r)}}}),L[k][q]||e(5)(L[k],q,L[k].valueOf),l(L,"Symbol"),l(Math,"Math",!0),l(r.JSON,"JSON",!0)},function(t,n,e){e(25)("asyncIterator")},function(t,n,e){e(25)("observable")},function(t,n,e){e(62);for(var r=e(1),o=e(5),i=e(17),u=e(7)("toStringTag"),f=["NodeList","DOMTokenList","MediaList","StyleSheetList","CSSRuleList"],c=0;c<5;c++){var a=f[c],s=r[a],l=s&&s.prototype;l&&!l[u]&&o(l,u,a),i[a]=i.Array}},function(t,n){"use strict";var e={versions:function(){var t=window.navigator.userAgent;return{trident:t.indexOf("Trident")>-1,presto:t.indexOf("Presto")>-1,webKit:t.indexOf("AppleWebKit")>-1,gecko:t.indexOf("Gecko")>-1&&t.indexOf("KHTML")==-1,mobile:!!t.match(/AppleWebKit.*Mobile.*/),ios:!!t.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),android:t.indexOf("Android")>-1||t.indexOf("Linux")>-1,iPhone:t.indexOf("iPhone")>-1||t.indexOf("Mac")>-1,iPad:t.indexOf("iPad")>-1,webApp:t.indexOf("Safari")==-1,weixin:t.indexOf("MicroMessenger")==-1}}()};t.exports=e},function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}var o=e(40),i=r(o),u=function(){function t(t,n,e){return n||e?String.fromCharCode(n||e):o[t]||t}function n(t){return l[t]}var e=/&quot;|&lt;|&gt;|&amp;|&nbsp;|&apos;|&#(\d+);|&#(\d+)/g,r=/['<> "&]/g,o={"&quot;":'"',"&lt;":"<","&gt;":">","&amp;":"&","&nbsp;":" "},f=/\u00a0/g,c=/<br\s*\/?>/gi,a=/\r?\n/g,s=/\s/g,l={};for(var p in o)l[o[p]]=p;return o["&apos;"]="'",l["'"]="&#39;",{encode:function(t){return t?(""+t).replace(r,n).replace(a,"<br/>").replace(s,"&nbsp;"):""},decode:function(n){return n?(""+n).replace(c,"\n").replace(e,t).replace(f," "):""},encodeBase16:function(t){if(!t)return t;t+="";for(var n=[],e=0,r=t.length;r>e;e++)n.push(t.charCodeAt(e).toString(16).toUpperCase());return n.join("")},encodeBase16forJSON:function(t){if(!t)return t;t=t.replace(/[\u4E00-\u9FBF]/gi,function(t){return escape(t).replace("%u","\\u")});for(var n=[],e=0,r=t.length;r>e;e++)n.push(t.charCodeAt(e).toString(16).toUpperCase());return n.join("")},decodeBase16:function(t){if(!t)return t;t+="";for(var n=[],e=0,r=t.length;r>e;e+=2)n.push(String.fromCharCode("0x"+t.slice(e,e+2)));return n.join("")},encodeObject:function(t){if(t instanceof Array)for(var n=0,e=t.length;e>n;n++)t[n]=u.encodeObject(t[n]);else if("object"==("undefined"==typeof t?"undefined":(0,i.default)(t)))for(var r in t)t[r]=u.encodeObject(t[r]);else if("string"==typeof t)return u.encode(t);return t},loadScript:function(t){var n=document.createElement("script");document.getElementsByTagName("body")[0].appendChild(n),n.setAttribute("src",t)},addLoadEvent:function(t){var n=window.onload;"function"!=typeof window.onload?window.onload=t:window.onload=function(){n(),t()}}}}();t.exports=u},function(t,n){function e(t,n){t.classList?t.classList.add(n):t.className+=" "+n}t.exports=e},function(t,n){function e(t,n){if(t.classList)t.classList.remove(n);else{var e=new RegExp("(^|\\b)"+n.split(" ").join("|")+"(\\b|$)","gi");t.className=t.className.replace(e," ")}}t.exports=e},,,function(t,n){"use strict";function e(){var t=document.querySelector("#page-nav");if(t&&!document.querySelector("#page-nav .extend.prev")&&(t.innerHTML='<a class="extend prev disabled" rel="prev">&laquo; Prev</a>'+t.innerHTML),t&&!document.querySelector("#page-nav .extend.next")&&(t.innerHTML=t.innerHTML+'<a class="extend next disabled" rel="next">Next &raquo;</a>'),yiliaConfig&&yiliaConfig.open_in_new){var n=document.querySelectorAll(".article-entry a:not(.article-more-a)");n.forEach(function(t){t.setAttribute("target","_blank")})}var e=document.querySelector("#js-aboutme");e&&0!==e.length&&(e.innerHTML=e.innerText)}t.exports={init:e}},,,,,,,,,function(t,n){function e(t,n){if("string"==typeof n)return t.insertAdjacentHTML("afterend",n);var e=t.nextSibling;return e?t.parentNode.insertBefore(n,e):t.parentNode.appendChild(n)}t.exports=e}])</script><script src="/./main.234bc0.js"></script><script>!function(){var e=function(e){var t=document.createElement("script");document.getElementsByTagName("body")[0].appendChild(t),t.setAttribute("src",e)};e("/slider.885efe.js")}()</script>
+
+
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-nav header-menu">
+    
+    
+      
+      
+      
+    
+      
+      
+      
+    
+      
+      
+      
+    
+    
+
+    <ul style="width: 70%">
+    
+    
+      
+      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
+      
+        
+      
+      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'friends')"><a href="javascript:void(0)" q-class="active:friends">友链</a></li>
+      
+        
+      
+      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">关于我</a></li>
+      
+        
+    </ul>
+  </div>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Bootstrap</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">AJAX</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">LogStash</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Kibana</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">分布式锁</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Zookeeper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Guava</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">HBase</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">yilia</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">性能调优工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">面经</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">JSON</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NIO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Kafka</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">投资理财</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">foreach</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JMM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Pyspider</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RabbitMQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">SpringBoot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Spring MVC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Hibernate JPA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RocketMQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ActiveMQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">String</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">线程池</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Velocity</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Android</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">博客合集</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Consul</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Flink</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">流控</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">GO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">lua</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">lombok</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">IO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">文件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">励志</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Mac</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Netty</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">书籍</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Servlet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">实习圈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">微服务</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">字符串</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">旋转词</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">表达式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Github Page</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">博客网站</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">循环队列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">编码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">finally</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">邮件发送</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Filter过滤器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">类加载机制</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            2、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: true
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends" q-show="friends">
+  		
+        <ul class="search-ul">
+          
+            <li class="search-li">
+              <a href="http://www.gitnavi.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>程序员工具导航</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://blog.csdn.net/tzs_1041218129" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>CSDN博客</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="https://juejin.im/user/57510b82128fe10056ca70fc" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>掘金</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.liaoxuefeng.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>廖雪峰</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.ruanyifeng.com/blog/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>阮一峰</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://coolshell.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>陈皓</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="https://www.zhihu.com/people/rednaxelafx/answers" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>R 大</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.54tianzhisheng.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>这个人有点不要脸</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.iocoder.cn/?vip" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>芋道源码</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://blog.didispace.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>程序猿DD</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://calvin1978.blogcn.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>江南白衣</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.cnblogs.com/webary/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>闻波</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://fengzhaofeng.net/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>冯兆峯</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.jianshu.com/u/90ab66c248e6" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>占小狼</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.bysocket.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>泥瓦匠</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://cmsblogs.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>chenssy</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://colobu.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>鸟窝</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="https://cuiqingcai.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>崔庆才</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.codedata.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>CodeData</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://blog.720ui.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>梁桂钊</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="https://investguider.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>美股指南</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.songyawei.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>Linux运维工程师</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.carlzone.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>carl.zhao</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://dongkelun.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>伦少的博客</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.codesheep.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>CodeSheep程序羊</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.jiangxinlingdu.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>匠心零度</a>
+            </li>
+          
+        </ul>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me" q-show="aboutme">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">2017.08 ~ 2018.05  永辉云创 基础架构组 实习 &lt;br&gt;&lt;br&gt; 2018.06 大学毕业 &lt;br&gt;&lt;br&gt;2018.06 ～ 现在  另一家公司各种折腾！&lt;br&gt;&lt;br&gt;</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

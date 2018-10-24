@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <!-- 百度联盟 -->
+  <meta name="baidu_union_verify" content="46e227ad81d5513c6cd8288c18c6ebad">
+
+  <!-- google analytics -->
+    <meta name="google-site-verification" content="SzCGQVmA8Mtk40elee-bCGpq2YSCAmEulSNEZHYCkFc" />
+
+  <!--百度站长之家验证-->
+  <meta name="baidu-site-verification" content="4woRik4rfk" />
+
+  <meta name="description" content="坑要一个个填，路要一步步走！—— from zhisheng的博客">
+  <meta name="keywords" content="Java,架构,后端,服务端,RocketMQ,分布式消息队列,分布式存储,技术博客,HBase,ElasticSearch,Spring,Spring Boot,Spring Boot 2.0,Spring Cloud,Spring MVC,Java EE,前端,HTML,MyBatis,Android,Docker,Mac,Consul,Kafka,Logstash,Kibana,MySQL,Maven,Nginx,Python,RabbitMQ,ActiveMQ,JVM">
+
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://yoursite.com">
+  <title>通过项目逐步深入了解Mybatis（二） | zhisheng的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="转载请务必注明出处，原创不易！  相关文章：通过项目逐步深入了解Mybatis&amp;lt;一&amp;gt;本项目全部代码地址：Github-Mybatis Mybatis 解决 jdbc 编程的问题1、  数据库链接创建、释放频繁造成系统资源浪费从而影响系统性能，如果使用数据库链接池可解决此问题。 解决：在SqlMapConfig.xml中配置数据链接池，使用连接池管理数据库链接。 2、  Sql语句写在代">
+<meta name="keywords" content="Mybatis,SpringMVC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通过项目逐步深入了解Mybatis（二）">
+<meta property="og:url" content="http://yoursite.com/2017/06/13/通过项目逐步深入了解Mybatis(二)/index.html">
+<meta property="og:site_name" content="zhisheng的博客">
+<meta property="og:description" content="转载请务必注明出处，原创不易！  相关文章：通过项目逐步深入了解Mybatis&amp;lt;一&amp;gt;本项目全部代码地址：Github-Mybatis Mybatis 解决 jdbc 编程的问题1、  数据库链接创建、释放频繁造成系统资源浪费从而影响系统性能，如果使用数据库链接池可解决此问题。 解决：在SqlMapConfig.xml中配置数据链接池，使用连接池管理数据库链接。 2、  Sql语句写在代">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ohfk1r827.bkt.clouddn.com/dao%E5%BC%80%E5%8F%91.jpg">
+<meta property="og:image" content="http://ohfk1r827.bkt.clouddn.com/mapper%E5%BC%80%E5%8F%91.jpg">
+<meta property="og:image" content="http://ohfk1r827.bkt.clouddn.com/mapper%E5%BC%80%E5%8F%912.jpg">
+<meta property="og:image" content="http://ohfk1r827.bkt.clouddn.com/%E6%8A%A5%E9%94%99.jpg">
+<meta property="og:image" content="http://ohfk1r827.bkt.clouddn.com/setting.jpg">
+<meta property="og:image" content="http://ohfk1r827.bkt.clouddn.com/Test4.jpg">
+<meta property="og:image" content="http://ohfk1r827.bkt.clouddn.com/Test5.jpg">
+<meta property="og:image" content="http://ohfk1r827.bkt.clouddn.com/Test6.jpg">
+<meta property="og:image" content="http://ohfk1r827.bkt.clouddn.com/Test7.jpg">
+<meta property="og:image" content="http://ohfk1r827.bkt.clouddn.com/Test8.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79gy1fp3jkmizmpj30o00didgn.jpg">
+<meta property="og:updated_time" content="2018-03-06T16:06:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="通过项目逐步深入了解Mybatis（二）">
+<meta name="twitter:description" content="转载请务必注明出处，原创不易！  相关文章：通过项目逐步深入了解Mybatis&amp;lt;一&amp;gt;本项目全部代码地址：Github-Mybatis Mybatis 解决 jdbc 编程的问题1、  数据库链接创建、释放频繁造成系统资源浪费从而影响系统性能，如果使用数据库链接池可解决此问题。 解决：在SqlMapConfig.xml中配置数据链接池，使用连接池管理数据库链接。 2、  Sql语句写在代">
+<meta name="twitter:image" content="http://ohfk1r827.bkt.clouddn.com/dao%E5%BC%80%E5%8F%91.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="zhisheng的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.ico">
+  
+  <link rel="stylesheet" type="text/css" href="/./main.234bc0.css">
+  <style type="text/css">
+  
+    #container.show {
+      background: linear-gradient(200deg,#a0cfe4,#e8c37e);
+    }
+  </style>
+  
+
+  
+<script type="text/javascript">
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c41be5a0c9f014e977695f66c065b5d3";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      
+<div class="overlay" style="background: #4d4d4d"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/avatar.png" class="js-avatar">
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">zhisheng</a></h1>
+		</hgroup>
+		
+		<p class="header-subtitle">坑要一个个填，路要一步步走！</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/archives/">博客</a></li>
+	        
+				<li><a href="/tags/随笔/">随笔</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+    		
+    			
+    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
+    			
+            
+    			
+    			<a q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友链</a>
+    			
+            
+    			
+    			<a q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/zhisheng17/" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/tian-zhisheng/activities" title="zhihu"><i class="icon-zhihu"></i></a>
+		        
+					<a class="qq" target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=12fd21bdd550f4b14f76ed5f00305b22e57fbd08aa55a18d472570280754a179" title="qq"><i class="icon-qq"></i></a>
+		        
+					<a class="mail" target="_blank" href="mailto://zhisheng2018@gmail.com" title="mail"><i class="icon-mail"></i></a>
+		        
+			</div>
+		</nav>
+		<br>
+		<br>
+		<div>
+			<img src="/img/wx.jpg"  alt="zhisheng" />
+		</div>
+		<br>
+		<div>
+			<img src="/img/mywx.png"  alt="zhisheng" />
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      
+<nav id="mobile-nav">
+  	<div class="overlay js-overlay" style="background: #4d4d4d"></div>
+	<div class="btnctn js-mobile-btnctn">
+  		<div class="slider-trigger list" q-on="click: openSlider(e)"><i class="icon icon-sort"></i></div>
+	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/avatar.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author js-header-author">zhisheng</h1>
+			</hgroup>
+			
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>坑要一个个填，路要一步步走！<i class="icon icon-quo-right"></i></p>
+			
+			
+			
+				
+			
+				
+			
+				
+			
+			
+			
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/zhisheng17/" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/tian-zhisheng/activities" title="zhihu"><i class="icon-zhihu"></i></a>
+			        
+						<a class="qq" target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=12fd21bdd550f4b14f76ed5f00305b22e57fbd08aa55a18d472570280754a179" title="qq"><i class="icon-qq"></i></a>
+			        
+						<a class="mail" target="_blank" href="mailto://zhisheng2018@gmail.com" title="mail"><i class="icon-mail"></i></a>
+			        
+				</div>
+			</nav>
+
+			<nav class="header-menu js-header-menu">
+				<ul style="width: 70%">
+				
+				
+					<li style="width: 33.333333333333336%"><a href="/">主页</a></li>
+		        
+					<li style="width: 33.333333333333336%"><a href="/archives/">博客</a></li>
+		        
+					<li style="width: 33.333333333333336%"><a href="/tags/随笔/">随笔</a></li>
+		        
+				</ul>
+			</nav>
+		</header>				
+	</div>
+	<div class="mobile-mask" style="display:none" q-show="isShow"></div>
+</nav>
+
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <article id="post-通过项目逐步深入了解Mybatis(二)" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      通过项目逐步深入了解Mybatis（二）
+    </h1>
+  
+
+        
+        <a href="/2017/06/13/通过项目逐步深入了解Mybatis(二)/" class="archive-article-date">
+  	<time datetime="2017-06-12T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-13</time>
+</a>
+        
+      </header>
+    
+
+    <!-- 目录内容 -->
+
+    <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+          <span class="btn-bg"></span>
+          <span class="btn-text">文章导航</span>
+          </p>
+    <div id="toc-article" class="toc-article">
+        <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+        <strong class="toc-title">文章目录</strong>
+           <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Mybatis-解决-jdbc-编程的问题"><span class="toc-number">1.</span> <span class="toc-text">Mybatis 解决 jdbc 编程的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mybatis-与-Hibernate-不同"><span class="toc-number">2.</span> <span class="toc-text">Mybatis 与 Hibernate 不同</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mybatis-开发-dao"><span class="toc-number"></span> <span class="toc-text">Mybatis 开发 dao</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#两种方法"><span class="toc-number">1.</span> <span class="toc-text">两种方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#需求"><span class="toc-number">2.</span> <span class="toc-text">需求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sqlsession-的使用范围"><span class="toc-number">3.</span> <span class="toc-text">Sqlsession 的使用范围</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1、SqlSessionFactoryBuilder"><span class="toc-number">4.</span> <span class="toc-text">1、SqlSessionFactoryBuilder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、SqlSessionFactory"><span class="toc-number">5.</span> <span class="toc-text">2、SqlSessionFactory</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、SqlSession"><span class="toc-number">6.</span> <span class="toc-text">3、SqlSession</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结论："><span class="toc-number">7.</span> <span class="toc-text">结论：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原始-Dao-开发方法"><span class="toc-number"></span> <span class="toc-text">原始 Dao 开发方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#思路："><span class="toc-number">1.</span> <span class="toc-text">思路：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dao接口"><span class="toc-number">2.</span> <span class="toc-text">Dao接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dao-实现类"><span class="toc-number">3.</span> <span class="toc-text">Dao 实现类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试"><span class="toc-number">4.</span> <span class="toc-text">测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题"><span class="toc-number">5.</span> <span class="toc-text">问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mybatis-的-mapper-接口"><span class="toc-number"></span> <span class="toc-text">Mybatis 的 mapper 接口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#思路"><span class="toc-number">1.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结："><span class="toc-number">2.</span> <span class="toc-text">总结：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试-1"><span class="toc-number">3.</span> <span class="toc-text">测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代理对象内部调用-selectOne-或者-selectList"><span class="toc-number">4.</span> <span class="toc-text">代理对象内部调用 selectOne 或者 selectList</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mapper接口方法参数只能有一个是否影响系统开发"><span class="toc-number">5.</span> <span class="toc-text">mapper接口方法参数只能有一个是否影响系统开发</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SqlMapConfig-xml-文件"><span class="toc-number"></span> <span class="toc-text">SqlMapConfig.xml 文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#properties-属性"><span class="toc-number">1.</span> <span class="toc-text">properties 属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#settings（全局配置参数）"><span class="toc-number">2.</span> <span class="toc-text">settings（全局配置参数）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#typeAliases（类型别名）"><span class="toc-number">3.</span> <span class="toc-text">typeAliases（类型别名）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#typeHandlers（类型处理器）"><span class="toc-number">4.</span> <span class="toc-text">typeHandlers（类型处理器）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mappers（映射器）"><span class="toc-number">5.</span> <span class="toc-text">mappers（映射器）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mapper-xml-映射文件"><span class="toc-number"></span> <span class="toc-text">Mapper.xml 映射文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#输入映射"><span class="toc-number">1.</span> <span class="toc-text">输入映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#输出映射"><span class="toc-number">2.</span> <span class="toc-text">输出映射</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#输出简单类型"><span class="toc-number">2.1.</span> <span class="toc-text">输出简单类型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#动态-SQL"><span class="toc-number"></span> <span class="toc-text">动态 SQL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Sql-片段"><span class="toc-number">1.</span> <span class="toc-text">Sql 片段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#foreach"><span class="toc-number">2.</span> <span class="toc-text">foreach</span></a></li></ol>
+         </div>
+   <script type="text/javascript">
+    function showToc(){
+        var toc_article = document.getElementById("toc-article");
+        var show_toc_btn = document.getElementById("show-toc-btn");
+        toc_article.setAttribute("style","display:block");
+        show_toc_btn.setAttribute("style","display:none");
+        };
+    function showBtn(){
+        var toc_article = document.getElementById("toc-article");
+        var show_toc_btn = document.getElementById("show-toc-btn");
+        toc_article.setAttribute("style","display:none");
+        show_toc_btn.setAttribute("style","display:block");
+        };
+   </script>
+      
+<!-- 目录内容结束 -->
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>转载请务必注明出处，原创不易！</p>
+<p> 相关文章：<a href="http://blog.csdn.net/tzs_1041218129/article/details/53404326" target="_blank" rel="noopener"><strong>通过项目逐步深入了解Mybatis&lt;一&gt;</strong></a><br>本项目全部代码地址：<a href="https://github.com/zhisheng17/mybatis" target="_blank" rel="noopener"><strong>Github-Mybatis</strong></a></p>
+<h3 id="Mybatis-解决-jdbc-编程的问题"><a href="#Mybatis-解决-jdbc-编程的问题" class="headerlink" title="Mybatis 解决 jdbc 编程的问题"></a>Mybatis 解决 jdbc 编程的问题</h3><p>1、  数据库链接创建、释放频繁造成系统资源浪费从而影响系统性能，如果使用数据库链接池可解决此问题。</p>
+<p>解决：在SqlMapConfig.xml中配置数据链接池，使用连接池管理数据库链接。</p>
+<p>2、  Sql语句写在代码中造成代码不易维护，实际应用sql变化的可能较大，sql变动需要改变java代码。</p>
+<p>解决：将Sql语句配置在XXXXmapper.xml文件中与java代码分离。</p>
+<p>3、  向sql语句传参数麻烦，因为sql语句的where条件不一定，可能多也可能少，占位符需要和参数一一对应。</p>
+<p>解决：Mybatis自动将java对象映射至sql语句，通过statement中的parameterType定义输入参数的类型。</p>
+<p>4、  对结果集解析麻烦，sql变化导致解析代码变化，且解析前需要遍历，如果能将数据库记录封装成pojo对象解析比较方便。</p>
+<p>解决：Mybatis自动将sql执行结果映射至java对象，通过statement中的resultType定义输出结果的类型。</p>
+<a id="more"></a>
+<h3 id="Mybatis-与-Hibernate-不同"><a href="#Mybatis-与-Hibernate-不同" class="headerlink" title="Mybatis 与 Hibernate 不同"></a>Mybatis 与 Hibernate 不同</h3><p>Mybatis和hibernate不同，它不完全是一个ORM框架，因为MyBatis需要程序员自己编写Sql语句，不过mybatis可以通过XML或注解方式灵活配置要运行的sql语句，并将java对象和sql语句映射生成最终执行的sql，最后将sql执行的结果再映射生成java对象。</p>
+<p> Mybatis学习门槛低，简单易学，程序员直接编写原生态sql，可严格控制sql执行性能，灵活度高，非常适合对关系数据模型要求不高的软件开发，例如互联网软件、企业运营类软件等，因为这类软件需求变化频繁，一但需求变化要求成果输出迅速。但是灵活的前提是mybatis无法做到数据库无关性，如果需要实现支持多种数据库的软件则需要自定义多套sql映射文件，工作量大。</p>
+<p> Hibernate对象/关系映射能力强，数据库无关性好，对于关系模型要求高的软件（例如需求固定的定制化软件）如果用hibernate开发可以节省很多代码，提高效率。但是Hibernate的学习门槛高，要精通门槛更高，而且怎么设计O/R映射，在性能和对象模型之间如何权衡，以及怎样用好Hibernate需要具有很强的经验和能力才行。</p>
+<p>总之，按照用户的需求在有限的资源环境下只要能做出维护性、扩展性良好的软件架构都是好架构，所以框架只有适合才是最好。</p>
+<h2 id="Mybatis-开发-dao"><a href="#Mybatis-开发-dao" class="headerlink" title="Mybatis 开发 dao"></a>Mybatis 开发 dao</h2><h3 id="两种方法"><a href="#两种方法" class="headerlink" title="两种方法"></a>两种方法</h3><ul>
+<li>原始 dao 开发方法（程序需要编写 dao 接口和 dao 实现类）（掌握）</li>
+<li>Mybatis 的 mapper 接口（相当于 dao 接口）代理开发方法（掌握）</li>
+</ul>
+<h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>将下边的功能实现Dao：</p>
+<ul>
+<li>根据用户id查询一个用户信息</li>
+<li>根据用户名称模糊查询用户信息列表</li>
+<li>添加用户信息</li>
+</ul>
+<p>Mybatis 配置文件 SqlMapConfig.xml</p>
+<h3 id="Sqlsession-的使用范围"><a href="#Sqlsession-的使用范围" class="headerlink" title="Sqlsession 的使用范围"></a>Sqlsession 的使用范围</h3><p>SqlSession 中封装了对数据库的操作，如：查询、插入、更新、删除等。</p>
+<p>通过 SqlSessionFactory 创建 SqlSession，而 SqlSessionFactory 是通过 SqlSessionFactoryBuilder 进行创建。</p>
+<h3 id="1、SqlSessionFactoryBuilder"><a href="#1、SqlSessionFactoryBuilder" class="headerlink" title="1、SqlSessionFactoryBuilder"></a>1、SqlSessionFactoryBuilder</h3><p>SqlSessionFactoryBuilder 用于创建 SqlSessionFacoty，SqlSessionFacoty 一旦创建完成就不需要SqlSessionFactoryBuilder 了，因为 SqlSession 是通过 SqlSessionFactory 生产，所以可以将SqlSessionFactoryBuilder 当成一个工具类使用，最佳使用范围是方法范围即方法体内局部变量。</p>
+<h3 id="2、SqlSessionFactory"><a href="#2、SqlSessionFactory" class="headerlink" title="2、SqlSessionFactory"></a>2、SqlSessionFactory</h3><p>SqlSessionFactory 是一个接口，接口中定义了 openSession 的不同重载方法，SqlSessionFactory 的最佳使用范围是整个应用运行期间，一旦创建后可以重复使用，通常以单例模式管理 SqlSessionFactory。</p>
+<h3 id="3、SqlSession"><a href="#3、SqlSession" class="headerlink" title="3、SqlSession"></a>3、SqlSession</h3><p>SqlSession 是一个面向用户的接口， sqlSession 中定义了数据库操作，默认使用 DefaultSqlSession 实现类。</p>
+<p>执行过程如下：</p>
+<p>1）、  加载数据源等配置信息</p>
+<p>Environment environment = configuration.getEnvironment();</p>
+<p>2）、  创建数据库链接</p>
+<p>3）、  创建事务对象</p>
+<p>4）、  创建Executor，SqlSession 所有操作都是通过 Executor 完成，mybatis 源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (ExecutorType.BATCH == executorType) &#123;</span><br><span class="line">      executor = newBatchExecutor(<span class="keyword">this</span>, transaction);</span><br><span class="line">    &#125; elseif (ExecutorType.REUSE == executorType) &#123;</span><br><span class="line">      executor = <span class="keyword">new</span> ReuseExecutor(<span class="keyword">this</span>, transaction);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      executor = <span class="keyword">new</span> SimpleExecutor(<span class="keyword">this</span>, transaction);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">if</span> (cacheEnabled) &#123;</span><br><span class="line">      executor = <span class="keyword">new</span> CachingExecutor(executor, autoCommit);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>5）、  SqlSession的实现类即 DefaultSqlSession，此对象中对操作数据库实质上用的是 Executor</p>
+<h3 id="结论："><a href="#结论：" class="headerlink" title="结论："></a>结论：</h3><pre><code>每个线程都应该有它自己的SqlSession实例。SqlSession的实例不能共享使用，它也是线程不安全的。因此最佳的范围是请求或方法范围(定义局部变量使用)。绝对不能将SqlSession实例的引用放在一个类的静态字段或实例字段中。
+
+打开一个SqlSession；使用完毕就要关闭它。通常把这个关闭操作放到 finally 块中以确保每次都能执行关闭。如下：
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SqlSession session = sqlSessionFactory.openSession();</span><br><span class="line">	try &#123;</span><br><span class="line"> 		 // do work</span><br><span class="line">	&#125; finally &#123;</span><br><span class="line">  		session.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="原始-Dao-开发方法"><a href="#原始-Dao-开发方法" class="headerlink" title="原始 Dao 开发方法"></a>原始 Dao 开发方法</h2><h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><p>需要程序员编写 Dao 接口和 Dao 实现类；</p>
+<p>需要在 Dao 实现类中注入 SqlsessionFactory ，在方法体内通过 SqlsessionFactory 创建 Sqlsession。</p>
+<h3 id="Dao接口"><a href="#Dao接口" class="headerlink" title="Dao接口"></a>Dao接口</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserDao</span>    //<span class="title">dao</span>接口，用户管理</span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">//根据id查询用户信息</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">findUserById</span><span class="params">(<span class="keyword">int</span> id)</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//添加用户信息</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addUser</span><span class="params">(User user)</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//删除用户信息</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteUser</span><span class="params">(<span class="keyword">int</span> id)</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Dao-实现类"><a href="#Dao-实现类" class="headerlink" title="Dao 实现类"></a>Dao 实现类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDaoImpl</span>  <span class="keyword">implements</span> <span class="title">UserDao</span>  //<span class="title">dao</span>接口实现类</span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">//需要在 Dao 实现类中注入 SqlsessionFactory</span></span><br><span class="line">    <span class="comment">//这里通过构造方法注入</span></span><br><span class="line">    <span class="keyword">private</span> SqlSessionFactory sqlSessionFactory;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UserDaoImpl</span><span class="params">(SqlSessionFactory sqlSessionFactory)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.sqlSessionFactory = sqlSessionFactory;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">findUserById</span><span class="params">(<span class="keyword">int</span> id)</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//在方法体内通过 SqlsessionFactory 创建 Sqlsession</span></span><br><span class="line">        SqlSession sqlSession = sqlSessionFactory.openSession();</span><br><span class="line">        User user = sqlSession.selectOne(<span class="string">"test.findUserById"</span>, id);</span><br><span class="line">        sqlSession.close();</span><br><span class="line">        <span class="keyword">return</span> user;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertUser</span><span class="params">(User user)</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//在方法体内通过 SqlsessionFactory 创建 Sqlsession</span></span><br><span class="line">        SqlSession sqlSession = sqlSessionFactory.openSession();</span><br><span class="line">        <span class="comment">//执行插入的操作</span></span><br><span class="line">        sqlSession.insert(<span class="string">"test.insetrUser"</span>, user);</span><br><span class="line">        <span class="comment">//提交事务</span></span><br><span class="line">        sqlSession.commit();</span><br><span class="line">        <span class="comment">//释放资源</span></span><br><span class="line">        sqlSession.close();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteUser</span><span class="params">(<span class="keyword">int</span> id)</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//在方法体内通过 SqlsessionFactory 创建 Sqlsession</span></span><br><span class="line">        SqlSession sqlSession = sqlSessionFactory.openSession();</span><br><span class="line">        sqlSession.delete(<span class="string">"test.deleteUserById"</span>, id);</span><br><span class="line">        <span class="comment">//提交事务</span></span><br><span class="line">        sqlSession.commit();</span><br><span class="line">        sqlSession.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDaoImplTest</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> SqlSessionFactory sqlSessionFactory;</span><br><span class="line">    <span class="comment">//此方法是在 testFindUserById 方法之前执行的</span></span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setup</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//创建sqlSessionFactory</span></span><br><span class="line">        <span class="comment">//Mybatis 配置文件</span></span><br><span class="line">        String resource = <span class="string">"SqlMapConfig.xml"</span>;</span><br><span class="line">        <span class="comment">//得到配置文件流</span></span><br><span class="line">        InputStream inputStream = Resources.getResourceAsStream(resource);</span><br><span class="line">        <span class="comment">//创建会话工厂,传入Mybatis的配置文件信息</span></span><br><span class="line">        sqlSessionFactory = <span class="keyword">new</span> SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testFindUserById</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//创建UserDao的对象</span></span><br><span class="line">        UserDao userDao = <span class="keyword">new</span> UserDaoImpl(sqlSessionFactory);</span><br><span class="line">        <span class="comment">//调用UserDao方法</span></span><br><span class="line">        User user = userDao.findUserById(<span class="number">1</span>);</span><br><span class="line">        System.out.println(user);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过id查询用户信息测试结果如下：（其他的可以自己在写测试代码，原理类似）</p>
+<p><img src="http://ohfk1r827.bkt.clouddn.com/dao%E5%BC%80%E5%8F%91.jpg" alt=""></p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>原始Dao开发中存在以下问题：</p>
+<ul>
+<li>Dao方法体存在重复代码：通过 SqlSessionFactory 创建 SqlSession，调用 SqlSession 的数据库操作方法</li>
+<li>调用 sqlSession 的数据库操作方法需要指定 statement 的i d，这里存在硬编码，不得于开发维护。</li>
+<li>调用 sqlSession 的数据库操作方法时传入的变量，由于 sqlsession 方法使用泛型，即使变量类型传入错误，在编译阶段也不报错，不利于程序员开发。</li>
+</ul>
+<h2 id="Mybatis-的-mapper-接口"><a href="#Mybatis-的-mapper-接口" class="headerlink" title="Mybatis 的 mapper 接口"></a>Mybatis 的 mapper 接口</h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>程序员需要编写 mapper.xml 映射文件</p>
+<p>只需要程序员编写Mapper接口（相当于Dao接口），需遵循一些开发规范，mybatis 可以自动生成 mapper 接口类代理对象。</p>
+<p>开发规范：</p>
+<ul>
+<li><p>在 mapper.xml 中 namespace 等于 mapper 接口地址</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"cn.zhisheng.mybatis.mapper.UserMapper"</span>&gt;</span><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 xxxmapper.java 接口中的方法名要与 xxxMapper.xml 中 statement 的 id 一致。</p>
+</li>
+<li><p>在 xxxmapper.java 接口中的输入参数类型要与 xxxMapper.xml 中 statement 的 parameterType 指定的参数类型一致。</p>
+</li>
+<li><p>在 xxxmapper.java 接口中的返回值类型要与 xxxMapper.xml 中 statement 的 resultType 指定的类型一致。</p>
+<p><code>UserMapper.java</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//根据id查询用户信息</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">findUserById</span><span class="params">(<span class="keyword">int</span> id)</span> <span class="keyword">throws</span> Exception</span>;</span><br></pre></td></tr></table></figure>
+<p><code>UserMapper.xml</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findUserById"</span> <span class="attr">parameterType</span>=<span class="string">"int"</span> <span class="attr">resultType</span>=<span class="string">"cn.zhisheng.mybatis.po.User"</span>&gt;</span></span><br><span class="line">        select * from user where id = #&#123;1&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>以上的开发规范主要是对下边的代码进行统一的生成：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">User user = sqlSession.selectOne(<span class="string">"test.findUserById"</span>, id);</span><br><span class="line">sqlSession.insert(<span class="string">"test.insetrUser"</span>, user);</span><br><span class="line">sqlSession.delete(<span class="string">"test.deleteUserById"</span>, id);</span><br><span class="line">List&lt;User&gt; list = sqlSession.selectList(<span class="string">"test.findUserByName"</span>, username);</span><br></pre></td></tr></table></figure>
+<h3 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h3><p>测试之前记得在 SqlMapConfig.xml 文件中添加加载映射文件 UserMapper.xml：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">resource</span>=<span class="string">"mapper/UserMapper.xml"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>测试代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserMapperTest</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> SqlSessionFactory sqlSessionFactory;</span><br><span class="line">    <span class="comment">//此方法是在 testFindUserById 方法之前执行的</span></span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setup</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//创建sqlSessionFactory</span></span><br><span class="line">        <span class="comment">//Mybatis 配置文件</span></span><br><span class="line">        String resource = <span class="string">"SqlMapConfig.xml"</span>;</span><br><span class="line">        <span class="comment">//得到配置文件流</span></span><br><span class="line">        InputStream inputStream = Resources.getResourceAsStream(resource);</span><br><span class="line">        <span class="comment">//创建会话工厂,传入Mybatis的配置文件信息</span></span><br><span class="line">        sqlSessionFactory = <span class="keyword">new</span> SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testFindUserById</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        SqlSession sqlSession = sqlSessionFactory.openSession();</span><br><span class="line">        <span class="comment">//创建usermapper对象,mybatis自动生成代理对象</span></span><br><span class="line">        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">        <span class="comment">//调用UserMapper的方法</span></span><br><span class="line">        User user = userMapper.findUserById(<span class="number">1</span>);</span><br><span class="line">        System.out.println(user);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过id查询用户信息测试结果如下：（其他的请自己根据上下文写测试代码，或者去看我 <a href="https://github.com/zhisheng17/mybatis" target="_blank" rel="noopener">Github-Mybatis学习笔记</a> 上看我这个项目的全部代码）</p>
+<p><img src="http://ohfk1r827.bkt.clouddn.com/mapper%E5%BC%80%E5%8F%91.jpg" alt=""></p>
+<p>通过姓名查询用户信息：</p>
+<p><img src="http://ohfk1r827.bkt.clouddn.com/mapper%E5%BC%80%E5%8F%912.jpg" alt=""></p>
+<h3 id="代理对象内部调用-selectOne-或者-selectList"><a href="#代理对象内部调用-selectOne-或者-selectList" class="headerlink" title="代理对象内部调用 selectOne 或者 selectList"></a>代理对象内部调用 selectOne 或者 selectList</h3><ul>
+<li>如果 mapper 方法返回单个 pojo 对象（非集合对象），代理对象内部通过 selectOne 查询数据库</li>
+<li>如果 mapper 方法返回集合对象，代理对象内部通过 selectList 查询数据库</li>
+</ul>
+<h3 id="mapper接口方法参数只能有一个是否影响系统开发"><a href="#mapper接口方法参数只能有一个是否影响系统开发" class="headerlink" title="mapper接口方法参数只能有一个是否影响系统开发"></a>mapper接口方法参数只能有一个是否影响系统开发</h3><blockquote>
+<p>mapper 接口方法参数只能有一个，系统是否不利于维护？</p>
+<p>系统框架中，dao层的代码是被业务层公用的。</p>
+<p>即使 mapper 接口只有一个参数，可以使用包装类型的 pojo 满足不同的业务方法的需求。</p>
+<p>注意：持久层方法的参数可以包装类型、map…. ，service方法中不建议使用包装类型。（不利于业务层的可扩展性）</p>
+</blockquote>
+<h2 id="SqlMapConfig-xml-文件"><a href="#SqlMapConfig-xml-文件" class="headerlink" title="SqlMapConfig.xml 文件"></a>SqlMapConfig.xml 文件</h2><p>Mybatis 的全局配置变量，配置内容和顺序如下：</p>
+<p>properties（属性）</p>
+<p>settings（全局配置参数）</p>
+<p>typeAliases（类型别名）</p>
+<p>typeHandlers（类型处理器）</p>
+<p>objectFactory（对象工厂）</p>
+<p>plugins（插件）</p>
+<p>environments（环境集合属性对象）</p>
+<p>​    environment（环境子属性对象）</p>
+<p>​        transactionManager（事务管理）</p>
+<p>​        dataSource（数据源）</p>
+<p>mappers（映射器）</p>
+<h3 id="properties-属性"><a href="#properties-属性" class="headerlink" title="properties 属性"></a>properties 属性</h3><p>需求：将数据库连接参数单独配置在 db.properties 中，只需要在 SqlMapConfig.xml 中加载该配置文件 db.properties 的属性值。在 SqlMapConfig.xml 中就不需要直接对数据库的连接参数进行硬编码了。方便以后对参数进行统一的管理，其他的xml文件可以引用该 db.properties 。</p>
+<p><code>db.properties</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">jdbc.driver=com.mysql.jdbc.Driver</span><br><span class="line">jdbc.url=jdbc:mysql://localhost:3306/mybatis_test?characterEncoding=utf-8</span><br><span class="line">jdbc.username=root</span><br><span class="line">jdbc.password=root</span><br></pre></td></tr></table></figure>
+<p>那么 SqlMapConfig.xml 中的配置变成如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--加载配置文件--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">properties</span> <span class="attr">resource</span>=<span class="string">"db.properties"</span>&gt;</span><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 和spring整合后 environments配置将废除--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">environments</span> <span class="attr">default</span>=<span class="string">"development"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">environment</span> <span class="attr">id</span>=<span class="string">"development"</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 使用jdbc事务管理,事务由 Mybatis 控制--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">transactionManager</span> <span class="attr">type</span>=<span class="string">"JDBC"</span> /&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 数据库连接池--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">"POOLED"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driver"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.driver&#125;"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.url&#125;"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.username&#125;"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.password&#125;"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dataSource</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">environment</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">environments</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>配置完成后我们测试一下是否能够和刚才一样的能够成功呢？那么我就先在db.properties中把数据库密码故意改错，看是否是正确的？不出意外的话是会报错的。</p>
+<p><img src="http://ohfk1r827.bkt.clouddn.com/%E6%8A%A5%E9%94%99.jpg" alt=""></p>
+<p>注意： MyBatis 将按照下面的顺序来加载属性：</p>
+<ul>
+<li>在 properties 元素体内定义的属性首先被读取。</li>
+</ul>
+<ul>
+<li>然后会读取 properties 元素中 resource 或 url 加载的属性，它会覆盖已读取的同名属性。</li>
+</ul>
+<ul>
+<li><p>最后读取 parameterType 传递的属性，它会覆盖已读取的同名属性。</p>
+<p>因此，通过parameterType传递的属性具有最高优先级，resource或 url 加载的属性次之，最低优先级的是 properties 元素体内定义的属性。</p>
+</li>
+</ul>
+<p>建议：</p>
+<ul>
+<li>不要在 properties 元素体内添加任何属性值，只将属性值定义在 db.properties 文件之中。</li>
+<li>在  db.properties 文件之中定义的属性名要有一定的特殊性。如 xxx.xxx.xxx</li>
+</ul>
+<h3 id="settings（全局配置参数）"><a href="#settings（全局配置参数）" class="headerlink" title="settings（全局配置参数）"></a>settings（全局配置参数）</h3><p>Mybatis 框架在运行时可以调整一些运行参数</p>
+<p>比如：开启二级缓存、开启延迟加载。。。</p>
+<p><img src="http://ohfk1r827.bkt.clouddn.com/setting.jpg" alt=""></p>
+<h3 id="typeAliases（类型别名）"><a href="#typeAliases（类型别名）" class="headerlink" title="typeAliases（类型别名）"></a>typeAliases（类型别名）</h3><p>需求：</p>
+<p>在mapper.xml中，定义很多的statement，statement需要parameterType指定输入参数的类型、需要resultType指定输出结果的映射类型。</p>
+<p>如果在指定类型时输入类型全路径，不方便进行开发，可以针对parameterType或resultType指定的类型定义一些别名，在mapper.xml中通过别名定义，方便开发。</p>
+<p><strong>Mybatis支持的别名：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">别名</th>
+<th style="text-align:center">映射的类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">_byte</td>
+<td style="text-align:center">byte</td>
+</tr>
+<tr>
+<td style="text-align:center">_long</td>
+<td style="text-align:center">long</td>
+</tr>
+<tr>
+<td style="text-align:center">_short</td>
+<td style="text-align:center">short</td>
+</tr>
+<tr>
+<td style="text-align:center">_int</td>
+<td style="text-align:center">int</td>
+</tr>
+<tr>
+<td style="text-align:center">_integer</td>
+<td style="text-align:center">int</td>
+</tr>
+<tr>
+<td style="text-align:center">_double</td>
+<td style="text-align:center">double</td>
+</tr>
+<tr>
+<td style="text-align:center">_float</td>
+<td style="text-align:center">float</td>
+</tr>
+<tr>
+<td style="text-align:center">_boolean</td>
+<td style="text-align:center">boolean</td>
+</tr>
+<tr>
+<td style="text-align:center">string</td>
+<td style="text-align:center">String</td>
+</tr>
+<tr>
+<td style="text-align:center">byte</td>
+<td style="text-align:center">Byte</td>
+</tr>
+<tr>
+<td style="text-align:center">long</td>
+<td style="text-align:center">Long</td>
+</tr>
+<tr>
+<td style="text-align:center">short</td>
+<td style="text-align:center">Short</td>
+</tr>
+<tr>
+<td style="text-align:center">int</td>
+<td style="text-align:center">Integer</td>
+</tr>
+<tr>
+<td style="text-align:center">integer</td>
+<td style="text-align:center">Integer</td>
+</tr>
+<tr>
+<td style="text-align:center">double</td>
+<td style="text-align:center">Double</td>
+</tr>
+<tr>
+<td style="text-align:center">float</td>
+<td style="text-align:center">Float</td>
+</tr>
+<tr>
+<td style="text-align:center">boolean</td>
+<td style="text-align:center">Boolean</td>
+</tr>
+<tr>
+<td style="text-align:center">date</td>
+<td style="text-align:center">Date</td>
+</tr>
+<tr>
+<td style="text-align:center">decimal</td>
+<td style="text-align:center">BigDecimal</td>
+</tr>
+<tr>
+<td style="text-align:center">bigdecimal</td>
+<td style="text-align:center">BigDecimal</td>
+</tr>
+</tbody>
+</table>
+<p><strong>自定义别名：</strong></p>
+<p>在 SqlMapConfig.xml 中配置：(设置别名)</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 单个别名定义 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">alias</span>=<span class="string">"user"</span> <span class="attr">type</span>=<span class="string">"cn.zhisheng.mybatis.po.User"</span>/&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 批量别名定义，扫描整个包下的类，别名为类名（首字母大写或小写都可以） --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"cn.zhisheng.mybatis.po"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"其它包"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">typeAliases</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在 UserMapper.xml 中引用别名：( resultType 为 user )</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findUserById"</span> <span class="attr">parameterType</span>=<span class="string">"int"</span> <span class="attr">resultType</span>=<span class="string">"user"</span>&gt;</span></span><br><span class="line">        select * from user where id = #&#123;id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>测试结果：</p>
+<p><img src="http://ohfk1r827.bkt.clouddn.com/Test4.jpg" alt=""></p>
+<h3 id="typeHandlers（类型处理器）"><a href="#typeHandlers（类型处理器）" class="headerlink" title="typeHandlers（类型处理器）"></a>typeHandlers（类型处理器）</h3><p>mybatis中通过typeHandlers完成jdbc类型和java类型的转换。</p>
+<p> 通常情况下，mybatis提供的类型处理器满足日常需要，不需要自定义.</p>
+<p>mybatis支持类型处理器：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型处理器</th>
+<th style="text-align:center"><strong>Java</strong>类型</th>
+<th style="text-align:center"><strong>JDBC</strong>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">BooleanTypeHandler</td>
+<td style="text-align:center">Boolean，boolean</td>
+<td style="text-align:center">任何兼容的布尔值</td>
+</tr>
+<tr>
+<td style="text-align:center">ByteTypeHandler</td>
+<td style="text-align:center">Byte，byte</td>
+<td style="text-align:center">任何兼容的数字或字节类型</td>
+</tr>
+<tr>
+<td style="text-align:center">ShortTypeHandler</td>
+<td style="text-align:center">Short，short</td>
+<td style="text-align:center">任何兼容的数字或短整型</td>
+</tr>
+<tr>
+<td style="text-align:center">IntegerTypeHandler</td>
+<td style="text-align:center">Integer，int</td>
+<td style="text-align:center">任何兼容的数字和整型</td>
+</tr>
+<tr>
+<td style="text-align:center">LongTypeHandler</td>
+<td style="text-align:center">Long，long</td>
+<td style="text-align:center">任何兼容的数字或长整型</td>
+</tr>
+<tr>
+<td style="text-align:center">FloatTypeHandler</td>
+<td style="text-align:center">Float，float</td>
+<td style="text-align:center">任何兼容的数字或单精度浮点型</td>
+</tr>
+<tr>
+<td style="text-align:center">DoubleTypeHandler</td>
+<td style="text-align:center">Double，double</td>
+<td style="text-align:center">任何兼容的数字或双精度浮点型</td>
+</tr>
+<tr>
+<td style="text-align:center">BigDecimalTypeHandler</td>
+<td style="text-align:center">BigDecimal</td>
+<td style="text-align:center">任何兼容的数字或十进制小数类型</td>
+</tr>
+<tr>
+<td style="text-align:center">StringTypeHandler</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">CHAR和VARCHAR类型</td>
+</tr>
+<tr>
+<td style="text-align:center">ClobTypeHandler</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">CLOB和LONGVARCHAR类型</td>
+</tr>
+<tr>
+<td style="text-align:center">NStringTypeHandler</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">NVARCHAR和NCHAR类型</td>
+</tr>
+<tr>
+<td style="text-align:center">NClobTypeHandler</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">NCLOB类型</td>
+</tr>
+<tr>
+<td style="text-align:center">ByteArrayTypeHandler</td>
+<td style="text-align:center">byte[]</td>
+<td style="text-align:center">任何兼容的字节流类型</td>
+</tr>
+<tr>
+<td style="text-align:center">BlobTypeHandler</td>
+<td style="text-align:center">byte[]</td>
+<td style="text-align:center">BLOB和LONGVARBINARY类型</td>
+</tr>
+<tr>
+<td style="text-align:center">DateTypeHandler</td>
+<td style="text-align:center">Date（java.util）</td>
+<td style="text-align:center">TIMESTAMP类型</td>
+</tr>
+<tr>
+<td style="text-align:center">DateOnlyTypeHandler</td>
+<td style="text-align:center">Date（java.util）</td>
+<td style="text-align:center">DATE类型</td>
+</tr>
+<tr>
+<td style="text-align:center">TimeOnlyTypeHandler</td>
+<td style="text-align:center">Date（java.util）</td>
+<td style="text-align:center">TIME类型</td>
+</tr>
+<tr>
+<td style="text-align:center">SqlTimestampTypeHandler</td>
+<td style="text-align:center">Timestamp（java.sql）</td>
+<td style="text-align:center">TIMESTAMP类型</td>
+</tr>
+<tr>
+<td style="text-align:center">SqlDateTypeHandler</td>
+<td style="text-align:center">Date（java.sql）</td>
+<td style="text-align:center">DATE类型</td>
+</tr>
+<tr>
+<td style="text-align:center">SqlTimeTypeHandler</td>
+<td style="text-align:center">Time（java.sql）</td>
+<td style="text-align:center">TIME类型</td>
+</tr>
+<tr>
+<td style="text-align:center">ObjectTypeHandler</td>
+<td style="text-align:center">任意</td>
+<td style="text-align:center">其他或未指定类型</td>
+</tr>
+<tr>
+<td style="text-align:center">EnumTypeHandler</td>
+<td style="text-align:center">Enumeration类型</td>
+<td style="text-align:center">VARCHAR-任何兼容的字符串类型，作为代码存储（而不是索引）。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mappers（映射器）"><a href="#mappers（映射器）" class="headerlink" title="mappers（映射器）"></a>mappers（映射器）</h3><ul>
+<li><mapper resource=" ">
+
+<p>使用相对于类路径的资源，如：<mapper resource="sqlmap/User.xml"></mapper></p>
+</mapper></li>
+<li><mapper url=" ">
+
+<p>使用完全限定路径<br>如：<mapper url="file://D:\workspace\mybatis\config\sqlmap\User.xml"></mapper></p>
+</mapper></li>
+<li><mapper class=" ">
+
+<p>使用 mapper 接口类路径</p>
+<p>如：<mapper class="cn.zhisheng.mybatis.mapper.UserMapper"></mapper></p>
+<p>注意：此种方法要求 mapper 接口名称和 mapper 映射文件名称相同，且放在同一个目录中。</p>
+</mapper></li>
+<li><mapper name=" ">
+
+<p>注册指定包下的所有mapper接口<br>如：<package name="cn.zhisheng.mybatis.mapper"><br>注意：此种方法要求 mapper 接口名称和 mapper 映射文件名称相同，且放在同一个目录中。</package></p>
+</mapper></li>
+</ul>
+<h2 id="Mapper-xml-映射文件"><a href="#Mapper-xml-映射文件" class="headerlink" title="Mapper.xml 映射文件"></a>Mapper.xml 映射文件</h2><p>Mapper.xml映射文件中定义了操作数据库的sql，每个sql是一个statement，映射文件是mybatis的核心。</p>
+<h3 id="输入映射"><a href="#输入映射" class="headerlink" title="输入映射"></a>输入映射</h3><p>通过 parameterType 指定输入参数的类型，类型可以是简单类型、hashmap、pojo的包装类型。</p>
+<p><strong>传递 pojo 包装对象</strong> （重点）</p>
+<p>开发中通过pojo传递查询条件 ，查询条件是综合的查询条件，不仅包括用户查询条件还包括其它的查询条件（比如将用户购买商品信息也作为查询条件），这时可以使用包装对象传递输入参数。</p>
+<ul>
+<li><p>定义包装对象</p>
+<p>定义包装对象将查询条件(pojo)以类组合的方式包装起来。</p>
+<p><code>UserQueryVo.java</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserQueryVo</span>    //用户包装类型</span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">//在这里包装所需要的查询条件</span></span><br><span class="line">    <span class="comment">//用户查询条件</span></span><br><span class="line">    <span class="keyword">private</span> UserCustom userCustom;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> UserCustom <span class="title">getUserCustom</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> userCustom;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUserCustom</span><span class="params">(UserCustom userCustom)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.userCustom = userCustom;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//还可以包装其他的查询条件，比如订单、商品</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>UserCustomer.java</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserCustom</span> <span class="keyword">extends</span> <span class="title">User</span>    //用户的扩展类</span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">//可以扩展用户的信息</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>UserMapper.xml</code> 文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--用户信息综合查询</span></span><br><span class="line"><span class="comment">    #&#123;userCustom.sex&#125; :取出pojo包装对象中的性别值</span></span><br><span class="line"><span class="comment">    #&#123;userCustom.username&#125; :取出pojo包装对象中的用户名称</span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findUserList"</span> <span class="attr">parameterType</span>=<span class="string">"cn.zhisheng.mybatis.po.UserQueryVo"</span> <span class="attr">resultType</span>=<span class="string">"cn.zhisheng.mybatis.po.UserCustom"</span>&gt;</span></span><br><span class="line">        select * from user where user.sex = #&#123;userCustom.sex&#125; and user.username like  '%$&#123;userCustom.username&#125;%'</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>UserMapper.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用户信息综合查询</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;UserCustom&gt; <span class="title">findUserList</span><span class="params">(UserQueryVo userQueryVo)</span> <span class="keyword">throws</span> Exception</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//测试用户信息综合查询</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testFindUserList</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        SqlSession sqlSession = sqlSessionFactory.openSession();</span><br><span class="line">        <span class="comment">//创建usermapper对象,mybatis自动生成代理对象</span></span><br><span class="line">        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">        <span class="comment">//创建包装对象，设置查询条件</span></span><br><span class="line">        UserQueryVo userQueryVo = <span class="keyword">new</span> UserQueryVo();</span><br><span class="line">        UserCustom userCustom = <span class="keyword">new</span> UserCustom();</span><br><span class="line">        userCustom.setSex(<span class="string">"男"</span>);</span><br><span class="line">        userCustom.setUsername(<span class="string">"张小明"</span>);</span><br><span class="line">        userQueryVo.setUserCustom(userCustom);</span><br><span class="line">        <span class="comment">//调用UserMapper的方法</span></span><br><span class="line">        List&lt;UserCustom&gt; list = userMapper.findUserList(userQueryVo);</span><br><span class="line">        System.out.println(list);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试结果</p>
+<p><img src="http://ohfk1r827.bkt.clouddn.com/Test5.jpg" alt=""></p>
+</li>
+</ul>
+<h3 id="输出映射"><a href="#输出映射" class="headerlink" title="输出映射"></a>输出映射</h3><ul>
+<li><strong>resultType</strong></li>
+</ul>
+<blockquote>
+<ul>
+<li><strong>使用 resultType 进行输出映射，只有查询出来的列名和 pojo 中的属性名一致，该列才可以映射成功。</strong></li>
+<li>如果查询出来的列名和 pojo 中的属性名全部不一致，没有创建 pojo 对象。</li>
+<li>只要查询出来的列名和 pojo 中的属性有一个一致，就会创建 pojo 对象。</li>
+</ul>
+</blockquote>
+<h4 id="输出简单类型"><a href="#输出简单类型" class="headerlink" title="输出简单类型"></a>输出简单类型</h4><p>需求：用户信息综合查询列表总数，通过查询总数和上边用户综合查询列表才可以实现分页</p>
+<p>实现：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--用户信息综合查询总数</span></span><br><span class="line"><span class="comment">    parameterType:指定输入的类型和findUserList一样</span></span><br><span class="line"><span class="comment">    resultType:输出结果类型为 int</span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findUserCount"</span> <span class="attr">parameterType</span>=<span class="string">"cn.zhisheng.mybatis.po.UserQueryVo"</span> <span class="attr">resultType</span>=<span class="string">"int"</span>&gt;</span></span><br><span class="line">      select count(*) from user where user.sex = #&#123;userCustom.sex&#125; and user.username like  '%$&#123;userCustom.username&#125;%'</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用户信息综合查询总数</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findUserCount</span><span class="params">(UserQueryVo userQueryVo)</span> <span class="keyword">throws</span> Exception</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//测试用户信息综合查询总数</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testFindUserCount</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        SqlSession sqlSession = sqlSessionFactory.openSession();</span><br><span class="line">        <span class="comment">//创建usermapper对象,mybatis自动生成代理对象</span></span><br><span class="line">        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">        <span class="comment">//创建包装对象，设置查询条件</span></span><br><span class="line">        UserQueryVo userQueryVo = <span class="keyword">new</span> UserQueryVo();</span><br><span class="line">        UserCustom userCustom = <span class="keyword">new</span> UserCustom();</span><br><span class="line">        userCustom.setSex(<span class="string">"男"</span>);</span><br><span class="line">        userCustom.setUsername(<span class="string">"张小明"</span>);</span><br><span class="line">        userQueryVo.setUserCustom(userCustom);</span><br><span class="line">        <span class="comment">//调用UserMapper的方法</span></span><br><span class="line">        System.out.println(userMapper.findUserCount(userQueryVo));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://ohfk1r827.bkt.clouddn.com/Test6.jpg" alt=""></p>
+<p>注意：查询出来的结果集只有一行且一列，可以使用简单类型进行输出映射。</p>
+<p><strong>输出pojo对象和pojo列表</strong></p>
+<p>不管是输出的pojo单个对象还是一个列表（list中包括pojo），在mapper.xml中resultType指定的类型是一样的。</p>
+<p>在mapper.java指定的方法返回值类型不一样：</p>
+<p>1、输出单个pojo对象，方法返回值是单个对象类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//根据id查询用户信息</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">findUserById</span><span class="params">(<span class="keyword">int</span> id)</span> <span class="keyword">throws</span> Exception</span>;</span><br></pre></td></tr></table></figure>
+<p>2、输出pojo对象list，方法返回值是List<pojo></pojo></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//根据用户名查询用户信息</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> List&lt;User&gt; <span class="title">findUserByUsername</span><span class="params">(String userName)</span> <span class="keyword">throws</span>  Exception</span>;</span><br></pre></td></tr></table></figure>
+<p> resultType总结：</p>
+<p>输出pojo对象和输出pojo列表在sql中定义的resultType是一样的。</p>
+<p>返回单个pojo对象要保证sql查询出来的结果集为单条，内部使用session.selectOne方法调用，mapper接口使用pojo对象作为方法返回值。</p>
+<p>返回pojo列表表示查询出来的结果集可能为多条，内部使用session.selectList方法，mapper接口使用List<pojo>对象作为方法返回值。</pojo></p>
+<ul>
+<li><strong>resultMap</strong></li>
+</ul>
+<p>resultType 可以指定 pojo 将查询结果映射为 pojo，但需要 pojo 的属性名和 sql 查询的列名一致方可映射成功。</p>
+<p>如果sql查询字段名和pojo的属性名不一致，可以通过resultMap将字段名和属性名作一个对应关系 ，resultMap实质上还需要将查询结果映射到pojo对象中。</p>
+<p>resultMap可以实现将查询结果映射为复杂类型的pojo，比如在查询结果映射对象中包括pojo和list实现一对一查询和一对多查询。</p>
+<p>使用方法：</p>
+<p>1、定义 resultMap</p>
+<p>2、使用 resultMap 作为 statement 的输出映射类型</p>
+<p>将下面的 sql 使用 User 完成映射</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> id_, username username_ <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">id</span> = #&#123;<span class="keyword">value</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>User 类中属性名和上边查询的列名不一致。</p>
+<p>所以需要：</p>
+<p>1、定义 resultMap</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--定义 resultMap</span></span><br><span class="line"><span class="comment">    将select id id_, username username_ from user where id = #&#123;value&#125; 和User类中的属性做一个映射关系</span></span><br><span class="line"><span class="comment">    type: resultMap最终映射的java对象类型</span></span><br><span class="line"><span class="comment">    id:对resultMap的唯一标识</span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"userResultMap"</span> <span class="attr">type</span>=<span class="string">"user"</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--id表示查询结果中的唯一标识</span></span><br><span class="line"><span class="comment">        column：查询出来的列名</span></span><br><span class="line"><span class="comment">        property：type指定pojo的属性名</span></span><br><span class="line"><span class="comment">        最终resultMap对column和property做一个映射关系（对应关系）</span></span><br><span class="line"><span class="comment">        --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id_"</span> <span class="attr">property</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--result: 对普通结果映射定义</span></span><br><span class="line"><span class="comment">        column：查询出来的列名</span></span><br><span class="line"><span class="comment">        property：type指定pojo的属性名</span></span><br><span class="line"><span class="comment">        最终resultMap对column和property做一个映射关系（对应关系）</span></span><br><span class="line"><span class="comment">        --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"username_"</span> <span class="attr">property</span>=<span class="string">"username"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>2、使用 resultMap 作为 statement 的输出映射类型</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--使用 resultMap 作为输出映射类型</span></span><br><span class="line"><span class="comment">        resultMap="userResultMap":其中的userResultMap就是我们刚才定义的 resultMap 的id值,如果这个resultMap在其他的mapper文件中，前边须加上namespace --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findUserByIdResultMap"</span> <span class="attr">parameterType</span>=<span class="string">"int"</span> <span class="attr">resultMap</span>=<span class="string">"userResultMap"</span>&gt;</span></span><br><span class="line">        select id id_, username username_ from user where id = #&#123;value&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>3、<code>UserMapper.java</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//根据id查询用户信息，使用 resultMap 输出</span><br><span class="line">public User findUserByIdResultMap(int id) throws Exception;</span><br></pre></td></tr></table></figure>
+<p>4、测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//测试根据id查询用户信息，使用 resultMap 输出</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testFindUserByIdResultMap</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        SqlSession sqlSession = sqlSessionFactory.openSession();</span><br><span class="line">        <span class="comment">//创建usermapper对象,mybatis自动生成代理对象</span></span><br><span class="line">        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);</span><br><span class="line">        <span class="comment">//调用UserMapper的方法</span></span><br><span class="line">        User user = userMapper.findUserByIdResultMap(<span class="number">1</span>);</span><br><span class="line">        System.out.println(user);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>5、测试结果</p>
+<p><img src="http://ohfk1r827.bkt.clouddn.com/Test7.jpg" alt=""></p>
+<h2 id="动态-SQL"><a href="#动态-SQL" class="headerlink" title="动态 SQL"></a>动态 SQL</h2><p>通过mybatis提供的各种标签方法实现动态拼接sql。</p>
+<p>需求：</p>
+<p>用户信息综合查询列表和用户信息查询列表总数这两个 statement的定义使用动态sql。</p>
+<p>对查询条件进行判断，如果输入的参数不为空才进行查询条件拼接。</p>
+<p><code>UserMapper.xml</code> (findUserList的配置如下，那么findUserCount的也是一样的，这里就不全部写出来了)</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findUserList"</span> <span class="attr">parameterType</span>=<span class="string">"cn.zhisheng.mybatis.po.UserQueryVo"</span> <span class="attr">resultType</span>=<span class="string">"cn.zhisheng.mybatis.po.UserCustom"</span>&gt;</span></span><br><span class="line">        select * from user</span><br><span class="line">        <span class="comment">&lt;!--where可以自动的去掉条件中的第一个and--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"userCustom != null"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"userCustom.sex != null and userCustom.sex != ''"</span>&gt;</span></span><br><span class="line">                    and user.sex = #&#123;userCustom.sex&#125;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"userCustom.username != null"</span>&gt;</span></span><br><span class="line">                    and user.username like  '%$&#123;userCustom.username&#125;%'</span><br><span class="line">                <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>测试代码：因为设置了动态的sql，如果不设置某个值，那么条件就不会拼接在sql上</p>
+<p>所以我们就注释掉设置username的语句</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//userCustom.setUsername("张小明");</span></span><br></pre></td></tr></table></figure>
+<p>测试结果：</p>
+<p><img src="http://ohfk1r827.bkt.clouddn.com/Test8.jpg" alt=""></p>
+<h3 id="Sql-片段"><a href="#Sql-片段" class="headerlink" title="Sql 片段"></a>Sql 片段</h3><p>通过上面的其实看到在 where sql语句中有很多重复代码，我们可以将其抽取出来，组成一个sql片段，其他的statement就可以引用这个sql片段，利于系统的开发。</p>
+<p>这里我们就拿上边sql 中的where定义一个sq片段如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--sql片段</span></span><br><span class="line"><span class="comment">   id:唯一标识</span></span><br><span class="line"><span class="comment">   经验：是基于单表来定义sql片段，这样的话sql片段的可重用性才高</span></span><br><span class="line"><span class="comment">   一般不包含where</span></span><br><span class="line"><span class="comment">   --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">"query_user_where"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"userCustom != null"</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"userCustom.sex != null and userCustom.sex != ''"</span>&gt;</span></span><br><span class="line">               and user.sex = #&#123;userCustom.sex&#125;</span><br><span class="line">           <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"userCustom.username != null"</span>&gt;</span></span><br><span class="line">               and user.username like  '%$&#123;userCustom.username&#125;%'</span><br><span class="line">           <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>那么我们该怎样引用这个sql片段呢？如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select * from user</span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--refid: 指定sql片段的id，如果是写在其他的mapper文件中，则需要在前面加上namespace--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"query_user_where"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>测试的话还是那样了，就不继续说了，前面已经说了很多了。</p>
+<h3 id="foreach"><a href="#foreach" class="headerlink" title="foreach"></a>foreach</h3><p>向sql传递数组或List，mybatis使用foreach解析</p>
+<p>需求：</p>
+<p>在用户查询列表和查询总数的statement中增加多个id输入查询。</p>
+<p>sql语句如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">USER</span> <span class="keyword">WHERE</span> <span class="keyword">id</span>=<span class="number">1</span> <span class="keyword">OR</span> <span class="keyword">id</span>=<span class="number">10</span> ORid=<span class="number">16</span></span><br><span class="line">或者</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">USER</span> <span class="keyword">WHERE</span> <span class="keyword">id</span> <span class="keyword">IN</span>(<span class="number">1</span>,<span class="number">10</span>,<span class="number">16</span>)</span><br></pre></td></tr></table></figure>
+<p>在输入参数类型中添加 List<integer> ids 传入多个 id</integer></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserQueryVo</span>    //用户包装类型</span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">//传入多个id</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;Integer&gt; ids;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>修改 UserMapper.xml文件</p>
+<p>WHERE id=1 OR id=10 OR id=16</p>
+<p>在查询条件中，查询条件定义成一个sql片段，需要修改sql片段。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"ids!=null"</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- 使用 foreach遍历传入ids</span></span><br><span class="line"><span class="comment">			collection：指定输入 对象中集合属性</span></span><br><span class="line"><span class="comment">			item：每个遍历生成对象中</span></span><br><span class="line"><span class="comment">			open：开始遍历时拼接的串</span></span><br><span class="line"><span class="comment">			close：结束遍历时拼接的串</span></span><br><span class="line"><span class="comment">			separator：遍历的两个对象中需要拼接的串</span></span><br><span class="line"><span class="comment">			 --&gt;</span></span><br><span class="line">			 <span class="comment">&lt;!-- 使用实现下边的sql拼接：</span></span><br><span class="line"><span class="comment">			  AND (id=1 OR id=10 OR id=16)</span></span><br><span class="line"><span class="comment">			  --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"ids"</span> <span class="attr">item</span>=<span class="string">"user_id"</span> <span class="attr">open</span>=<span class="string">"AND ("</span> <span class="attr">close</span>=<span class="string">")"</span> <span class="attr">separator</span>=<span class="string">"or"</span>&gt;</span></span><br><span class="line">				<span class="comment">&lt;!-- 每个遍历需要拼接的串 --&gt;</span></span><br><span class="line">				id=#&#123;user_id&#125;</span><br><span class="line">			<span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line"></span><br><span class="line">			<span class="comment">&lt;!-- 实现  “ and id IN(1,10,16)”拼接 --&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- &lt;foreach collection="ids" item="user_id" open="and id IN(" close=")" separator=","&gt;</span></span><br><span class="line"><span class="comment">				每个遍历需要拼接的串</span></span><br><span class="line"><span class="comment">				#&#123;user_id&#125;</span></span><br><span class="line"><span class="comment">			&lt;/foreach&gt; --&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>测试代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//传入多个id</span></span><br><span class="line">List&lt;Integer&gt; ids = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">ids.add(<span class="number">1</span>);</span><br><span class="line">ids.add(<span class="number">10</span>);</span><br><span class="line">ids.add(<span class="number">16</span>);</span><br><span class="line"><span class="comment">//将ids传入statement中</span></span><br><span class="line">userQueryVo.setIds(ids);</span><br></pre></td></tr></table></figure>
+<p>期待后续的文章吧！</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79gy1fp3jkmizmpj30o00didgn.jpg" alt=""></p>
+
+      
+
+      <!-- <div>
+  			<img src="/img/wx.jpg"  style="margin: 0 auto;" />
+  		</div> -->
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你支持我买服务器！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/zhifubao.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/weixin.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Mybatis</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">SpringMVC</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/06/13/通过项目逐步深入了解Mybatis(二)/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2017/06/13/feiji/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          记录下自己第一次坐飞机的感受
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/13/String-new/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">关于String s = new String(&#34;xyz&#34;); 创建几个对象的问题</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
+  
+
+
+
+  <section id="comments">
+<!--高速版，加载速度快，使用前需测试页面的兼容性-->
+<div id="SOHUCS" sid="通过项目逐步深入了解Mybatis（二）"  style="padding: 0px 30px 0px 46px;"></div>
+<script>
+  (function(){
+    var appid = 'cysWCg9Ij',
+    conf = '7f51baf245f3217589bb3b4ba8d8c691';
+    var doc = document,
+    s = doc.createElement('script'),
+    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+    s.type = 'text/javascript';
+    s.charset = 'utf-8';
+    s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+    h.insertBefore(s,h.firstChild);
+    window.SCS_NO_IFRAME = true;
+  })()
+</script>
+  </section>
+  
+
+          </div>
+        </div>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 zhisheng
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://www.54tianzhisheng.cn/" target="_blank">Hexo</a>  Theme <a href="http://www.54tianzhisheng.cn/" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+  <span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+<span id="busuanzi_container_page_pv">
+  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</span>
+<p>Hosted by <a href="http://www.54tianzhisheng.cn/" style="font-weight: bold">Coding Pages</a></p>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https'){
+     bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else{
+    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+</footer>
+
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true,
+		showTags: false
+	}
+</script>
+
+<script>!function(t){function n(r){if(e[r])return e[r].exports;var o=e[r]={exports:{},id:r,loaded:!1};return t[r].call(o.exports,o,o.exports,n),o.loaded=!0,o.exports}var e={};return n.m=t,n.c=e,n.p="./",n(0)}([function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}function o(t,n){var e=/\/|index.html/g;return t.replace(e,"")===n.replace(e,"")}function i(){for(var t=document.querySelectorAll(".js-header-menu li a"),n=window.location.pathname,e=0,r=t.length;e<r;e++){var i=t[e];o(n,i.getAttribute("href"))&&(0,d.default)(i,"active")}}function u(t){for(var n=t.offsetLeft,e=t.offsetParent;null!==e;)n+=e.offsetLeft,e=e.offsetParent;return n}function f(t){for(var n=t.offsetTop,e=t.offsetParent;null!==e;)n+=e.offsetTop,e=e.offsetParent;return n}function c(t,n,e,r,o){var i=u(t),c=f(t)-n;if(c-e<=o){var a=t.$newDom;a||(a=t.cloneNode(!0),(0,h.default)(t,a),t.$newDom=a,a.style.position="fixed",a.style.top=(e||c)+"px",a.style.left=i+"px",a.style.zIndex=r||2,a.style.width="100%",a.style.color="#fff"),a.style.visibility="visible",t.style.visibility="hidden"}else{t.style.visibility="visible";var s=t.$newDom;s&&(s.style.visibility="hidden")}}function a(){var t=document.querySelector(".js-overlay"),n=document.querySelector(".js-header-menu");c(t,document.body.scrollTop,-63,2,0),c(n,document.body.scrollTop,1,3,0)}function s(){document.querySelector("#container").addEventListener("scroll",function(t){a()}),window.addEventListener("scroll",function(t){a()}),a()}function l(){x.default.versions.mobile&&window.screen.width<800&&(i(),s())}var p=e(71),d=r(p),v=e(72),y=(r(v),e(84)),h=r(y),b=e(69),x=r(b),m=e(75),g=r(m),w=e(70);l(),(0,w.addLoadEvent)(function(){g.default.init()}),t.exports={}},function(t,n){var e=t.exports="undefined"!=typeof window&&window.Math==Math?window:"undefined"!=typeof self&&self.Math==Math?self:Function("return this")();"number"==typeof __g&&(__g=e)},function(t,n){var e={}.hasOwnProperty;t.exports=function(t,n){return e.call(t,n)}},function(t,n,e){var r=e(49),o=e(15);t.exports=function(t){return r(o(t))}},function(t,n,e){t.exports=!e(8)(function(){return 7!=Object.defineProperty({},"a",{get:function(){return 7}}).a})},function(t,n,e){var r=e(6),o=e(12);t.exports=e(4)?function(t,n,e){return r.f(t,n,o(1,e))}:function(t,n,e){return t[n]=e,t}},function(t,n,e){var r=e(10),o=e(30),i=e(24),u=Object.defineProperty;n.f=e(4)?Object.defineProperty:function(t,n,e){if(r(t),n=i(n,!0),r(e),o)try{return u(t,n,e)}catch(t){}if("get"in e||"set"in e)throw TypeError("Accessors not supported!");return"value"in e&&(t[n]=e.value),t}},function(t,n,e){var r=e(22)("wks"),o=e(13),i=e(1).Symbol,u="function"==typeof i,f=t.exports=function(t){return r[t]||(r[t]=u&&i[t]||(u?i:o)("Symbol."+t))};f.store=r},function(t,n){t.exports=function(t){try{return!!t()}catch(t){return!0}}},function(t,n,e){var r=e(35),o=e(16);t.exports=Object.keys||function(t){return r(t,o)}},function(t,n,e){var r=e(11);t.exports=function(t){if(!r(t))throw TypeError(t+" is not an object!");return t}},function(t,n){t.exports=function(t){return"object"==typeof t?null!==t:"function"==typeof t}},function(t,n){t.exports=function(t,n){return{enumerable:!(1&t),configurable:!(2&t),writable:!(4&t),value:n}}},function(t,n){var e=0,r=Math.random();t.exports=function(t){return"Symbol(".concat(void 0===t?"":t,")_",(++e+r).toString(36))}},function(t,n){var e=t.exports={version:"2.4.0"};"number"==typeof __e&&(__e=e)},function(t,n){t.exports=function(t){if(void 0==t)throw TypeError("Can't call method on  "+t);return t}},function(t,n){t.exports="constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf".split(",")},function(t,n){t.exports={}},function(t,n){t.exports=!0},function(t,n){n.f={}.propertyIsEnumerable},function(t,n,e){var r=e(6).f,o=e(2),i=e(7)("toStringTag");t.exports=function(t,n,e){t&&!o(t=e?t:t.prototype,i)&&r(t,i,{configurable:!0,value:n})}},function(t,n,e){var r=e(22)("keys"),o=e(13);t.exports=function(t){return r[t]||(r[t]=o(t))}},function(t,n,e){var r=e(1),o="__core-js_shared__",i=r[o]||(r[o]={});t.exports=function(t){return i[t]||(i[t]={})}},function(t,n){var e=Math.ceil,r=Math.floor;t.exports=function(t){return isNaN(t=+t)?0:(t>0?r:e)(t)}},function(t,n,e){var r=e(11);t.exports=function(t,n){if(!r(t))return t;var e,o;if(n&&"function"==typeof(e=t.toString)&&!r(o=e.call(t)))return o;if("function"==typeof(e=t.valueOf)&&!r(o=e.call(t)))return o;if(!n&&"function"==typeof(e=t.toString)&&!r(o=e.call(t)))return o;throw TypeError("Can't convert object to primitive value")}},function(t,n,e){var r=e(1),o=e(14),i=e(18),u=e(26),f=e(6).f;t.exports=function(t){var n=o.Symbol||(o.Symbol=i?{}:r.Symbol||{});"_"==t.charAt(0)||t in n||f(n,t,{value:u.f(t)})}},function(t,n,e){n.f=e(7)},function(t,n,e){var r=e(1),o=e(14),i=e(46),u=e(5),f="prototype",c=function(t,n,e){var a,s,l,p=t&c.F,d=t&c.G,v=t&c.S,y=t&c.P,h=t&c.B,b=t&c.W,x=d?o:o[n]||(o[n]={}),m=x[f],g=d?r:v?r[n]:(r[n]||{})[f];d&&(e=n);for(a in e)s=!p&&g&&void 0!==g[a],s&&a in x||(l=s?g[a]:e[a],x[a]=d&&"function"!=typeof g[a]?e[a]:h&&s?i(l,r):b&&g[a]==l?function(t){var n=function(n,e,r){if(this instanceof t){switch(arguments.length){case 0:return new t;case 1:return new t(n);case 2:return new t(n,e)}return new t(n,e,r)}return t.apply(this,arguments)};return n[f]=t[f],n}(l):y&&"function"==typeof l?i(Function.call,l):l,y&&((x.virtual||(x.virtual={}))[a]=l,t&c.R&&m&&!m[a]&&u(m,a,l)))};c.F=1,c.G=2,c.S=4,c.P=8,c.B=16,c.W=32,c.U=64,c.R=128,t.exports=c},function(t,n){var e={}.toString;t.exports=function(t){return e.call(t).slice(8,-1)}},function(t,n,e){var r=e(11),o=e(1).document,i=r(o)&&r(o.createElement);t.exports=function(t){return i?o.createElement(t):{}}},function(t,n,e){t.exports=!e(4)&&!e(8)(function(){return 7!=Object.defineProperty(e(29)("div"),"a",{get:function(){return 7}}).a})},function(t,n,e){"use strict";var r=e(18),o=e(27),i=e(36),u=e(5),f=e(2),c=e(17),a=e(51),s=e(20),l=e(58),p=e(7)("iterator"),d=!([].keys&&"next"in[].keys()),v="@@iterator",y="keys",h="values",b=function(){return this};t.exports=function(t,n,e,x,m,g,w){a(e,n,x);var O,S,_,j=function(t){if(!d&&t in A)return A[t];switch(t){case y:return function(){return new e(this,t)};case h:return function(){return new e(this,t)}}return function(){return new e(this,t)}},P=n+" Iterator",E=m==h,M=!1,A=t.prototype,T=A[p]||A[v]||m&&A[m],L=T||j(m),N=m?E?j("entries"):L:void 0,C="Array"==n?A.entries||T:T;if(C&&(_=l(C.call(new t)),_!==Object.prototype&&(s(_,P,!0),r||f(_,p)||u(_,p,b))),E&&T&&T.name!==h&&(M=!0,L=function(){return T.call(this)}),r&&!w||!d&&!M&&A[p]||u(A,p,L),c[n]=L,c[P]=b,m)if(O={values:E?L:j(h),keys:g?L:j(y),entries:N},w)for(S in O)S in A||i(A,S,O[S]);else o(o.P+o.F*(d||M),n,O);return O}},function(t,n,e){var r=e(10),o=e(55),i=e(16),u=e(21)("IE_PROTO"),f=function(){},c="prototype",a=function(){var t,n=e(29)("iframe"),r=i.length,o="<",u=">";for(n.style.display="none",e(48).appendChild(n),n.src="javascript:",t=n.contentWindow.document,t.open(),t.write(o+"script"+u+"document.F=Object"+o+"/script"+u),t.close(),a=t.F;r--;)delete a[c][i[r]];return a()};t.exports=Object.create||function(t,n){var e;return null!==t?(f[c]=r(t),e=new f,f[c]=null,e[u]=t):e=a(),void 0===n?e:o(e,n)}},function(t,n,e){var r=e(35),o=e(16).concat("length","prototype");n.f=Object.getOwnPropertyNames||function(t){return r(t,o)}},function(t,n){n.f=Object.getOwnPropertySymbols},function(t,n,e){var r=e(2),o=e(3),i=e(45)(!1),u=e(21)("IE_PROTO");t.exports=function(t,n){var e,f=o(t),c=0,a=[];for(e in f)e!=u&&r(f,e)&&a.push(e);for(;n.length>c;)r(f,e=n[c++])&&(~i(a,e)||a.push(e));return a}},function(t,n,e){t.exports=e(5)},function(t,n,e){var r=e(15);t.exports=function(t){return Object(r(t))}},function(t,n,e){t.exports={default:e(41),__esModule:!0}},function(t,n,e){t.exports={default:e(42),__esModule:!0}},function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}n.__esModule=!0;var o=e(39),i=r(o),u=e(38),f=r(u),c="function"==typeof f.default&&"symbol"==typeof i.default?function(t){return typeof t}:function(t){return t&&"function"==typeof f.default&&t.constructor===f.default&&t!==f.default.prototype?"symbol":typeof t};n.default="function"==typeof f.default&&"symbol"===c(i.default)?function(t){return"undefined"==typeof t?"undefined":c(t)}:function(t){return t&&"function"==typeof f.default&&t.constructor===f.default&&t!==f.default.prototype?"symbol":"undefined"==typeof t?"undefined":c(t)}},function(t,n,e){e(65),e(63),e(66),e(67),t.exports=e(14).Symbol},function(t,n,e){e(64),e(68),t.exports=e(26).f("iterator")},function(t,n){t.exports=function(t){if("function"!=typeof t)throw TypeError(t+" is not a function!");return t}},function(t,n){t.exports=function(){}},function(t,n,e){var r=e(3),o=e(61),i=e(60);t.exports=function(t){return function(n,e,u){var f,c=r(n),a=o(c.length),s=i(u,a);if(t&&e!=e){for(;a>s;)if(f=c[s++],f!=f)return!0}else for(;a>s;s++)if((t||s in c)&&c[s]===e)return t||s||0;return!t&&-1}}},function(t,n,e){var r=e(43);t.exports=function(t,n,e){if(r(t),void 0===n)return t;switch(e){case 1:return function(e){return t.call(n,e)};case 2:return function(e,r){return t.call(n,e,r)};case 3:return function(e,r,o){return t.call(n,e,r,o)}}return function(){return t.apply(n,arguments)}}},function(t,n,e){var r=e(9),o=e(34),i=e(19);t.exports=function(t){var n=r(t),e=o.f;if(e)for(var u,f=e(t),c=i.f,a=0;f.length>a;)c.call(t,u=f[a++])&&n.push(u);return n}},function(t,n,e){t.exports=e(1).document&&document.documentElement},function(t,n,e){var r=e(28);t.exports=Object("z").propertyIsEnumerable(0)?Object:function(t){return"String"==r(t)?t.split(""):Object(t)}},function(t,n,e){var r=e(28);t.exports=Array.isArray||function(t){return"Array"==r(t)}},function(t,n,e){"use strict";var r=e(32),o=e(12),i=e(20),u={};e(5)(u,e(7)("iterator"),function(){return this}),t.exports=function(t,n,e){t.prototype=r(u,{next:o(1,e)}),i(t,n+" Iterator")}},function(t,n){t.exports=function(t,n){return{value:n,done:!!t}}},function(t,n,e){var r=e(9),o=e(3);t.exports=function(t,n){for(var e,i=o(t),u=r(i),f=u.length,c=0;f>c;)if(i[e=u[c++]]===n)return e}},function(t,n,e){var r=e(13)("meta"),o=e(11),i=e(2),u=e(6).f,f=0,c=Object.isExtensible||function(){return!0},a=!e(8)(function(){return c(Object.preventExtensions({}))}),s=function(t){u(t,r,{value:{i:"O"+ ++f,w:{}}})},l=function(t,n){if(!o(t))return"symbol"==typeof t?t:("string"==typeof t?"S":"P")+t;if(!i(t,r)){if(!c(t))return"F";if(!n)return"E";s(t)}return t[r].i},p=function(t,n){if(!i(t,r)){if(!c(t))return!0;if(!n)return!1;s(t)}return t[r].w},d=function(t){return a&&v.NEED&&c(t)&&!i(t,r)&&s(t),t},v=t.exports={KEY:r,NEED:!1,fastKey:l,getWeak:p,onFreeze:d}},function(t,n,e){var r=e(6),o=e(10),i=e(9);t.exports=e(4)?Object.defineProperties:function(t,n){o(t);for(var e,u=i(n),f=u.length,c=0;f>c;)r.f(t,e=u[c++],n[e]);return t}},function(t,n,e){var r=e(19),o=e(12),i=e(3),u=e(24),f=e(2),c=e(30),a=Object.getOwnPropertyDescriptor;n.f=e(4)?a:function(t,n){if(t=i(t),n=u(n,!0),c)try{return a(t,n)}catch(t){}if(f(t,n))return o(!r.f.call(t,n),t[n])}},function(t,n,e){var r=e(3),o=e(33).f,i={}.toString,u="object"==typeof window&&window&&Object.getOwnPropertyNames?Object.getOwnPropertyNames(window):[],f=function(t){try{return o(t)}catch(t){return u.slice()}};t.exports.f=function(t){return u&&"[object Window]"==i.call(t)?f(t):o(r(t))}},function(t,n,e){var r=e(2),o=e(37),i=e(21)("IE_PROTO"),u=Object.prototype;t.exports=Object.getPrototypeOf||function(t){return t=o(t),r(t,i)?t[i]:"function"==typeof t.constructor&&t instanceof t.constructor?t.constructor.prototype:t instanceof Object?u:null}},function(t,n,e){var r=e(23),o=e(15);t.exports=function(t){return function(n,e){var i,u,f=String(o(n)),c=r(e),a=f.length;return c<0||c>=a?t?"":void 0:(i=f.charCodeAt(c),i<55296||i>56319||c+1===a||(u=f.charCodeAt(c+1))<56320||u>57343?t?f.charAt(c):i:t?f.slice(c,c+2):(i-55296<<10)+(u-56320)+65536)}}},function(t,n,e){var r=e(23),o=Math.max,i=Math.min;t.exports=function(t,n){return t=r(t),t<0?o(t+n,0):i(t,n)}},function(t,n,e){var r=e(23),o=Math.min;t.exports=function(t){return t>0?o(r(t),9007199254740991):0}},function(t,n,e){"use strict";var r=e(44),o=e(52),i=e(17),u=e(3);t.exports=e(31)(Array,"Array",function(t,n){this._t=u(t),this._i=0,this._k=n},function(){var t=this._t,n=this._k,e=this._i++;return!t||e>=t.length?(this._t=void 0,o(1)):"keys"==n?o(0,e):"values"==n?o(0,t[e]):o(0,[e,t[e]])},"values"),i.Arguments=i.Array,r("keys"),r("values"),r("entries")},function(t,n){},function(t,n,e){"use strict";var r=e(59)(!0);e(31)(String,"String",function(t){this._t=String(t),this._i=0},function(){var t,n=this._t,e=this._i;return e>=n.length?{value:void 0,done:!0}:(t=r(n,e),this._i+=t.length,{value:t,done:!1})})},function(t,n,e){"use strict";var r=e(1),o=e(2),i=e(4),u=e(27),f=e(36),c=e(54).KEY,a=e(8),s=e(22),l=e(20),p=e(13),d=e(7),v=e(26),y=e(25),h=e(53),b=e(47),x=e(50),m=e(10),g=e(3),w=e(24),O=e(12),S=e(32),_=e(57),j=e(56),P=e(6),E=e(9),M=j.f,A=P.f,T=_.f,L=r.Symbol,N=r.JSON,C=N&&N.stringify,k="prototype",F=d("_hidden"),q=d("toPrimitive"),I={}.propertyIsEnumerable,B=s("symbol-registry"),D=s("symbols"),W=s("op-symbols"),H=Object[k],K="function"==typeof L,R=r.QObject,J=!R||!R[k]||!R[k].findChild,U=i&&a(function(){return 7!=S(A({},"a",{get:function(){return A(this,"a",{value:7}).a}})).a})?function(t,n,e){var r=M(H,n);r&&delete H[n],A(t,n,e),r&&t!==H&&A(H,n,r)}:A,G=function(t){var n=D[t]=S(L[k]);return n._k=t,n},$=K&&"symbol"==typeof L.iterator?function(t){return"symbol"==typeof t}:function(t){return t instanceof L},z=function(t,n,e){return t===H&&z(W,n,e),m(t),n=w(n,!0),m(e),o(D,n)?(e.enumerable?(o(t,F)&&t[F][n]&&(t[F][n]=!1),e=S(e,{enumerable:O(0,!1)})):(o(t,F)||A(t,F,O(1,{})),t[F][n]=!0),U(t,n,e)):A(t,n,e)},Y=function(t,n){m(t);for(var e,r=b(n=g(n)),o=0,i=r.length;i>o;)z(t,e=r[o++],n[e]);return t},Q=function(t,n){return void 0===n?S(t):Y(S(t),n)},X=function(t){var n=I.call(this,t=w(t,!0));return!(this===H&&o(D,t)&&!o(W,t))&&(!(n||!o(this,t)||!o(D,t)||o(this,F)&&this[F][t])||n)},V=function(t,n){if(t=g(t),n=w(n,!0),t!==H||!o(D,n)||o(W,n)){var e=M(t,n);return!e||!o(D,n)||o(t,F)&&t[F][n]||(e.enumerable=!0),e}},Z=function(t){for(var n,e=T(g(t)),r=[],i=0;e.length>i;)o(D,n=e[i++])||n==F||n==c||r.push(n);return r},tt=function(t){for(var n,e=t===H,r=T(e?W:g(t)),i=[],u=0;r.length>u;)!o(D,n=r[u++])||e&&!o(H,n)||i.push(D[n]);return i};K||(L=function(){if(this instanceof L)throw TypeError("Symbol is not a constructor!");var t=p(arguments.length>0?arguments[0]:void 0),n=function(e){this===H&&n.call(W,e),o(this,F)&&o(this[F],t)&&(this[F][t]=!1),U(this,t,O(1,e))};return i&&J&&U(H,t,{configurable:!0,set:n}),G(t)},f(L[k],"toString",function(){return this._k}),j.f=V,P.f=z,e(33).f=_.f=Z,e(19).f=X,e(34).f=tt,i&&!e(18)&&f(H,"propertyIsEnumerable",X,!0),v.f=function(t){return G(d(t))}),u(u.G+u.W+u.F*!K,{Symbol:L});for(var nt="hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables".split(","),et=0;nt.length>et;)d(nt[et++]);for(var nt=E(d.store),et=0;nt.length>et;)y(nt[et++]);u(u.S+u.F*!K,"Symbol",{for:function(t){return o(B,t+="")?B[t]:B[t]=L(t)},keyFor:function(t){if($(t))return h(B,t);throw TypeError(t+" is not a symbol!")},useSetter:function(){J=!0},useSimple:function(){J=!1}}),u(u.S+u.F*!K,"Object",{create:Q,defineProperty:z,defineProperties:Y,getOwnPropertyDescriptor:V,getOwnPropertyNames:Z,getOwnPropertySymbols:tt}),N&&u(u.S+u.F*(!K||a(function(){var t=L();return"[null]"!=C([t])||"{}"!=C({a:t})||"{}"!=C(Object(t))})),"JSON",{stringify:function(t){if(void 0!==t&&!$(t)){for(var n,e,r=[t],o=1;arguments.length>o;)r.push(arguments[o++]);return n=r[1],"function"==typeof n&&(e=n),!e&&x(n)||(n=function(t,n){if(e&&(n=e.call(this,t,n)),!$(n))return n}),r[1]=n,C.apply(N,r)}}}),L[k][q]||e(5)(L[k],q,L[k].valueOf),l(L,"Symbol"),l(Math,"Math",!0),l(r.JSON,"JSON",!0)},function(t,n,e){e(25)("asyncIterator")},function(t,n,e){e(25)("observable")},function(t,n,e){e(62);for(var r=e(1),o=e(5),i=e(17),u=e(7)("toStringTag"),f=["NodeList","DOMTokenList","MediaList","StyleSheetList","CSSRuleList"],c=0;c<5;c++){var a=f[c],s=r[a],l=s&&s.prototype;l&&!l[u]&&o(l,u,a),i[a]=i.Array}},function(t,n){"use strict";var e={versions:function(){var t=window.navigator.userAgent;return{trident:t.indexOf("Trident")>-1,presto:t.indexOf("Presto")>-1,webKit:t.indexOf("AppleWebKit")>-1,gecko:t.indexOf("Gecko")>-1&&t.indexOf("KHTML")==-1,mobile:!!t.match(/AppleWebKit.*Mobile.*/),ios:!!t.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),android:t.indexOf("Android")>-1||t.indexOf("Linux")>-1,iPhone:t.indexOf("iPhone")>-1||t.indexOf("Mac")>-1,iPad:t.indexOf("iPad")>-1,webApp:t.indexOf("Safari")==-1,weixin:t.indexOf("MicroMessenger")==-1}}()};t.exports=e},function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}var o=e(40),i=r(o),u=function(){function t(t,n,e){return n||e?String.fromCharCode(n||e):o[t]||t}function n(t){return l[t]}var e=/&quot;|&lt;|&gt;|&amp;|&nbsp;|&apos;|&#(\d+);|&#(\d+)/g,r=/['<> "&]/g,o={"&quot;":'"',"&lt;":"<","&gt;":">","&amp;":"&","&nbsp;":" "},f=/\u00a0/g,c=/<br\s*\/?>/gi,a=/\r?\n/g,s=/\s/g,l={};for(var p in o)l[o[p]]=p;return o["&apos;"]="'",l["'"]="&#39;",{encode:function(t){return t?(""+t).replace(r,n).replace(a,"<br/>").replace(s,"&nbsp;"):""},decode:function(n){return n?(""+n).replace(c,"\n").replace(e,t).replace(f," "):""},encodeBase16:function(t){if(!t)return t;t+="";for(var n=[],e=0,r=t.length;r>e;e++)n.push(t.charCodeAt(e).toString(16).toUpperCase());return n.join("")},encodeBase16forJSON:function(t){if(!t)return t;t=t.replace(/[\u4E00-\u9FBF]/gi,function(t){return escape(t).replace("%u","\\u")});for(var n=[],e=0,r=t.length;r>e;e++)n.push(t.charCodeAt(e).toString(16).toUpperCase());return n.join("")},decodeBase16:function(t){if(!t)return t;t+="";for(var n=[],e=0,r=t.length;r>e;e+=2)n.push(String.fromCharCode("0x"+t.slice(e,e+2)));return n.join("")},encodeObject:function(t){if(t instanceof Array)for(var n=0,e=t.length;e>n;n++)t[n]=u.encodeObject(t[n]);else if("object"==("undefined"==typeof t?"undefined":(0,i.default)(t)))for(var r in t)t[r]=u.encodeObject(t[r]);else if("string"==typeof t)return u.encode(t);return t},loadScript:function(t){var n=document.createElement("script");document.getElementsByTagName("body")[0].appendChild(n),n.setAttribute("src",t)},addLoadEvent:function(t){var n=window.onload;"function"!=typeof window.onload?window.onload=t:window.onload=function(){n(),t()}}}}();t.exports=u},function(t,n){function e(t,n){t.classList?t.classList.add(n):t.className+=" "+n}t.exports=e},function(t,n){function e(t,n){if(t.classList)t.classList.remove(n);else{var e=new RegExp("(^|\\b)"+n.split(" ").join("|")+"(\\b|$)","gi");t.className=t.className.replace(e," ")}}t.exports=e},,,function(t,n){"use strict";function e(){var t=document.querySelector("#page-nav");if(t&&!document.querySelector("#page-nav .extend.prev")&&(t.innerHTML='<a class="extend prev disabled" rel="prev">&laquo; Prev</a>'+t.innerHTML),t&&!document.querySelector("#page-nav .extend.next")&&(t.innerHTML=t.innerHTML+'<a class="extend next disabled" rel="next">Next &raquo;</a>'),yiliaConfig&&yiliaConfig.open_in_new){var n=document.querySelectorAll(".article-entry a:not(.article-more-a)");n.forEach(function(t){t.setAttribute("target","_blank")})}var e=document.querySelector("#js-aboutme");e&&0!==e.length&&(e.innerHTML=e.innerText)}t.exports={init:e}},,,,,,,,,function(t,n){function e(t,n){if("string"==typeof n)return t.insertAdjacentHTML("afterend",n);var e=t.nextSibling;return e?t.parentNode.insertBefore(n,e):t.parentNode.appendChild(n)}t.exports=e}])</script><script src="/./main.234bc0.js"></script><script>!function(){var e=function(e){var t=document.createElement("script");document.getElementsByTagName("body")[0].appendChild(t),t.setAttribute("src",e)};e("/slider.885efe.js")}()</script>
+
+
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-nav header-menu">
+    
+    
+      
+      
+      
+    
+      
+      
+      
+    
+      
+      
+      
+    
+    
+
+    <ul style="width: 70%">
+    
+    
+      
+      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
+      
+        
+      
+      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'friends')"><a href="javascript:void(0)" q-class="active:friends">友链</a></li>
+      
+        
+      
+      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">关于我</a></li>
+      
+        
+    </ul>
+  </div>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Bootstrap</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">AJAX</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ElasticSearch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">LogStash</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Kibana</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">分布式锁</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Zookeeper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Guava</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">HBase</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">yilia</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">性能调优工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">面经</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">JSON</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NIO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Kafka</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">投资理财</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">foreach</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JMM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Pyspider</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RabbitMQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">SpringBoot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Spring MVC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Hibernate JPA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RocketMQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ActiveMQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">String</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">线程池</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Velocity</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Android</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">博客合集</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Consul</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Flink</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">流控</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">GO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">lua</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">lombok</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">IO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">文件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">励志</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Mac</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Netty</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">书籍</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Servlet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">实习圈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">微服务</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">字符串</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">旋转词</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">表达式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Github Page</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">博客网站</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">循环队列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">编码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">finally</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">邮件发送</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Filter过滤器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">类加载机制</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            2、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: true
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends" q-show="friends">
+  		
+        <ul class="search-ul">
+          
+            <li class="search-li">
+              <a href="http://www.gitnavi.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>程序员工具导航</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://blog.csdn.net/tzs_1041218129" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>CSDN博客</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="https://juejin.im/user/57510b82128fe10056ca70fc" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>掘金</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.liaoxuefeng.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>廖雪峰</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.ruanyifeng.com/blog/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>阮一峰</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://coolshell.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>陈皓</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="https://www.zhihu.com/people/rednaxelafx/answers" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>R 大</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.54tianzhisheng.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>这个人有点不要脸</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.iocoder.cn/?vip" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>芋道源码</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://blog.didispace.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>程序猿DD</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://calvin1978.blogcn.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>江南白衣</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.cnblogs.com/webary/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>闻波</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://fengzhaofeng.net/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>冯兆峯</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.jianshu.com/u/90ab66c248e6" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>占小狼</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.bysocket.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>泥瓦匠</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://cmsblogs.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>chenssy</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://colobu.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>鸟窝</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="https://cuiqingcai.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>崔庆才</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.codedata.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>CodeData</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://blog.720ui.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>梁桂钊</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="https://investguider.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>美股指南</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.songyawei.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>Linux运维工程师</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.carlzone.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>carl.zhao</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://dongkelun.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>伦少的博客</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.codesheep.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>CodeSheep程序羊</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.jiangxinlingdu.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>匠心零度</a>
+            </li>
+          
+        </ul>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me" q-show="aboutme">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">2017.08 ~ 2018.05  永辉云创 基础架构组 实习 &lt;br&gt;&lt;br&gt; 2018.06 大学毕业 &lt;br&gt;&lt;br&gt;2018.06 ～ 现在  另一家公司各种折腾！&lt;br&gt;&lt;br&gt;</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

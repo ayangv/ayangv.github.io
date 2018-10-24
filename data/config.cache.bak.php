@@ -1,7 +1,7 @@
 <?php
-$cfg_basehost = 'http://web12';
+$cfg_basehost = 'http://localhost';
 $cfg_cmspath = '';
-$cfg_cookie_encode = 'L2V3k7FdOw379O4MtPyNITBKcnEQ';
+$cfg_cookie_encode = 'pt3mM4CfUePCRMSm9QpnOGmUKNoM';
 $cfg_indexurl = '/';
 $cfg_backup_dir = 'backupdata';
 $cfg_indexname = '主页';

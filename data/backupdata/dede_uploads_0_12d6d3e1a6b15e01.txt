@@ -1,0 +1,8 @@
+INSERT INTO `dede_uploads` VALUES('1','0','170708/1-1FFQ20Zb11.jpg','/uploads/allimg/170708/1-1FFQ20Zb11.jpg','1','554','328','0','29053','1499486949','1');
+INSERT INTO `dede_uploads` VALUES('2','0','170708/1-1FFQ21300519.jpg','/uploads/allimg/170708/1-1FFQ21300519.jpg','1','700','462','0','44663','1499487180','1');
+INSERT INTO `dede_uploads` VALUES('3','3','内容优化之有“心”创作','/uploads/allimg/170708/1-1FFQ93502121.jpg','1','700','447','0','37453','1499513702','1');
+INSERT INTO `dede_uploads` VALUES('4','4','带着seo思维选域名 建站就成功了一半','/uploads/allimg/170708/1-1FFQ93552317.jpg','1','700','447','0','62647','1499513752','1');
+INSERT INTO `dede_uploads` VALUES('5','5','如何让自己的网站更有质量？AB模板王有妙招','/uploads/allimg/170708/1-1FFQ93934U8.jpg','1','700','443','0','135570','1499513974','1');
+INSERT INTO `dede_uploads` VALUES('6','6','第一张','/uploads/allimg/170708/1-1FFR153500-L.jpg','1','0','0','0','207062','1499522030','1');
+INSERT INTO `dede_uploads` VALUES('7','7','第二张','/uploads/allimg/170708/1-1FFR154310-L.jpg','1','0','0','0','190191','1499522071','1');
+INSERT INTO `dede_uploads` VALUES('8','8','第三张','/uploads/allimg/170708/1-1FFR154490-L.jpg','1','0','0','0','508955','1499522089','1');

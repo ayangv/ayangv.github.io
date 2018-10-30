@@ -1,0 +1,3 @@
+INSERT INTO `dede_addon17` VALUES('6','5','','','127.0.0.1','/a/ziyuan/5.html');
+INSERT INTO `dede_addon17` VALUES('7','5','','','127.0.0.1','http://www.dedeyuan.com');
+INSERT INTO `dede_addon17` VALUES('8','5','','','127.0.0.1','http://www.dedeyuan.com');

@@ -1,3 +1,0 @@
-INSERT INTO `dede_flink` VALUES('2','1','http://www.dedeyuan.com','织梦园模板','','','','1226375403','1','2');
-INSERT INTO `dede_flink` VALUES('9','1','http://www.dedeyuan.com','织梦园模板网','','','','1227772717','1','2');
-INSERT INTO `dede_flink` VALUES('8','1','http://www.dedeyuan.com','织梦园','','','','1227772703','1','2');
